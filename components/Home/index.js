@@ -119,7 +119,6 @@ function Home({ navigation }) {
                                 padding: 20,
                             }}
                         >
-                            <Text>Starting station: </Text>
                             <View style={styles.container}>
                                 <Autocomplete
                                     autoCapitalize="none"
@@ -130,7 +129,7 @@ function Home({ navigation }) {
                                     onBlur={() => setStartFlag(true)}
                                     defaultValue={startQuery}
                                     onChangeText={text => setStartQuery(text)}
-                                    placeholder="Enter a departing station"
+                                    placeholder="From:"
                                     renderItem={(item) => (
                                         <TouchableOpacity onPress={() => { Keyboard.dismiss(); setStartFlag(true); setStartQuery(item.item.name) }}>
                                             <Text style={styles.itemText}>
@@ -140,7 +139,6 @@ function Home({ navigation }) {
                                     )}
                                 />
                             </View>
-                            <Text>Ending station:</Text>
                             <View style={styles.container}>
                                 <Autocomplete
                                     autoCapitalize="none"
@@ -151,7 +149,7 @@ function Home({ navigation }) {
                                     onBlur={() => setEndFlag(true)}
                                     defaultValue={endQuery}
                                     onChangeText={text => setEndQuery(text)}
-                                    placeholder="Enter an arrival station"
+                                    placeholder="To:"
                                     renderItem={(item) => (
                                         <TouchableOpacity onPress={() => { Keyboard.dismiss(); setEndFlag(true); setEndQuery(item.item.name) }}>
                                             <Text style={styles.itemText}>
