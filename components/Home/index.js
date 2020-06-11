@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import suisseIcon from '../../icons/switzerland64.png'
 import { View, SafeAreaView, StatusBar, Image, Text, Button, TouchableOpacity, StyleSheet, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import Autocomplete from 'react-native-autocomplete-input';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 function Home({ navigation }) {
 
@@ -9,6 +10,9 @@ function Home({ navigation }) {
     const [startQuery, setStartQuery] = useState("")
     const [endStations, setEndStations] = useState([])
     const [endQuery, setEndQuery] = useState("")
+    const [date, setDate] = useState(new Date());
+    const [mode, setMode] = useState('date');
+    const [show, setShow] = useState(false);
 
     const API = "http://transport.opendata.ch/v1/locations?type=stations&query="
 
@@ -27,11 +31,30 @@ function Home({ navigation }) {
         });
     }, [endQuery])
 
+    const onChangeDateTime = (event, selectedDate) => {
+        const currentDate = selectedDate || date;
+        setShow(Platform.OS === 'ios');
+        setDate(currentDate);
+    };
+
+    const showMode = currentMode => {
+        setShow(true);
+        setMode(currentMode);
+    };
+
+    const showDatepicker = () => {
+        showMode('date');
+    };
+
+    const showTimepicker = () => {
+        showMode('time');
+    };
+
     const comp = (a, b) => a.toLowerCase().trim() === b.toLowerCase().trim();
 
     return (
-        <TouchableWithoutFeedback 
-            onPress = {() => { Keyboard.dismiss() }}
+        <TouchableWithoutFeedback
+            onPress={() => { Keyboard.dismiss() }}
         >
             <View
                 style={{
@@ -116,7 +139,8 @@ function Home({ navigation }) {
                                 onChangeText={text => setEndQuery(text)}
                                 placeholder="Enter a destination station"
                                 renderItem={(item) => (
-                                    <TouchableOpacity onPress={() => {setEndQuery(item.item.name)
+                                    <TouchableOpacity onPress={() => {
+                                        setEndQuery(item.item.name)
                                     }}>
                                         <Text style={styles.itemText}>
                                             {item.item.name}
@@ -131,6 +155,24 @@ function Home({ navigation }) {
                         />
                     </View>
                 </SafeAreaView>
+                <View>
+                    <View>
+                        <Button onPress={showDatepicker} title="Show date picker!" />
+                    </View>
+                    <View>
+                        <Button onPress={showTimepicker} title="Show time picker!" />
+                    </View>
+                    {show && (
+                        <DateTimePicker
+                            testID="dateTimePicker"
+                            value={date}
+                            mode={mode}
+                            is24Hour={true}
+                            display="default"
+                            onChange={onChangeDateTime}
+                        />
+                    )}
+                </View>
             </View>
         </TouchableWithoutFeedback>
     );
