@@ -250,7 +250,7 @@ function Home({ navigation }) {
                             <View>
                                 <Button
                                     title="Vai a Travel"
-                                    onPress={() => navigation.navigate('Travel', { id: "prova id" })}
+                                    onPress={() => navigation.navigate('Travel', { id: "ciao" })}
                                 />
                             </View>
                         </View>
