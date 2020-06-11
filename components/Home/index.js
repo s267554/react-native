@@ -14,7 +14,7 @@ function Home({ navigation }) {
     const [date, setDate] = useState(new Date());
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
-
+    const [travels, setTravels] = useState([])
     const [startFlag, setStartFlag] = useState(false)
     const [endFlag, setEndFlag] = useState(false)
 
@@ -54,6 +54,10 @@ function Home({ navigation }) {
     const showTimepicker = () => {
         showMode('time');
     };
+
+    const findTravels = () => {
+        console.log("ciaociao")
+    }
 
     const comp = (a, b) => a.toLowerCase().trim() === b.toLowerCase().trim();
 
@@ -158,6 +162,27 @@ function Home({ navigation }) {
                                 />
                             </View>
                             <View>
+                                <View>
+                                    <Text>Date:</Text>
+                                    <View>
+                                        <Text>{date.getDate() < 9 ? `0${date.getDate()}` : date.getDate()}/{(date.getMonth() + 1) < 9 ? `0${date.getMonth() + 1}` : date.getMonth() + 1}</Text>
+                                        <Button
+                                            onPress={showDatepicker}
+                                            title="EDIT"
+                                            type="clear" />
+                                    </View>
+                                </View>
+                                <View>
+                                    <Text>Time:</Text>
+                                    <View>
+                                        <Text>{date.getHours() < 9 ? `0${date.getHours()}` : date.getHours()}:{date.getMinutes() < 9 ? `0${date.getMinutes()}` : date.getMinutes()}</Text>
+                                        <Button
+                                            onPress={showTimepicker}
+                                            title="EDIT"
+                                            type="clear"
+                                        />
+                                    </View>
+                                </View>
                                 {show && (
                                     <DateTimePicker
                                         testID="dateTimePicker"
@@ -168,6 +193,12 @@ function Home({ navigation }) {
                                         onChange={onChangeDateTime}
                                     />
                                 )}
+                            </View>
+                            <View>
+                                <Button
+                                    title="Cerca"
+                                    onPress={findTravels}
+                                />
                             </View>
                             <View>
                                 <Button
