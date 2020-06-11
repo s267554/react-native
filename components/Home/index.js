@@ -5,26 +5,29 @@ import Autocomplete from 'react-native-autocomplete-input';
 
 function Home({ navigation }) {
 
-    const [stations, setStations] = useState([])
-    const [query, setQuery] = useState("")
+    const [startStations, setStartStations] = useState([])
+    const [startQuery, setStartQuery] = useState("")
+    const [endStations, setEndStations] = useState([])
+    const [endQuery, setEndQuery] = useState("")
 
-    function renderStation(station) {
-        const { name } = station;
-        return (
-            <View>
-                <Text style={styles.titleText}>{name}</Text>
-            </View>
-        );
-    }
 
     const API = "http://transport.opendata.ch/v1/locations?type=stations&query="
 
     useEffect(() => {
-        fetch(`${API}${query}`).then(res => res.json()).then((json) => {
+        fetch(`${API}${startQuery}`).then(res => res.json()).then((json) => {
             const { stations } = json;
-            setStations(stations);
+            setStartStations(stations);
         });
-    }, [query])
+    }, [startQuery])
+
+
+    useEffect(() => {
+        fetch(`${API}${endQuery}`).then(res => res.json()).then((json) => {
+            const { stations } = json;
+            setEndStations(stations);
+        });
+    }, [endQuery])
+
 
     const comp = (a, b) => a.toLowerCase().trim() === b.toLowerCase().trim();
 
@@ -82,38 +85,42 @@ function Home({ navigation }) {
                         padding: 20,
                     }}
                 >
-                    {/*qua ficca le varie cose*/}
+                    <Text>Starting station: </Text>
                     <View style={styles.container}>
-                        <Text>Starting stations</Text>
                         <Autocomplete
                             autoCapitalize="none"
                             autoCorrect={false}
                             containerStyle={styles.autocompleteContainer}
-                            data={stations.length === 1 && comp(query, stations[0].name) ? [] : stations}
-                            defaultValue={query}
-                            onChangeText={text => setQuery(text)}
-                            placeholder="Enter "
-                            renderItem={({ name }) => (
-                                <TouchableOpacity onPress={() => setQuery(name)}>
+                            data={startStations.length === 1 && comp(startQuery, startStations[0].name) ? [] : startStations}
+                            defaultValue={startQuery}
+                            onChangeText={text => setStartQuery(text)}
+                            placeholder="Enter a starting station"
+                            renderItem={(item) => (
+                                <TouchableOpacity onPress={() => setStartQuery(item.item.name)}>
                                     <Text style={styles.itemText}>
-                                        {name}
+                                        {item.item.name}
                                     </Text>
                                 </TouchableOpacity>
                             )}
                         />
-                        <View style={styles.descriptionContainer}>
-                            {stations.length > 0 ? (
-                                renderStation(stations[0])
-                            ) : (
-                                    <Text style={styles.infoText}>
-                                        Enter a starting station
-                                    </Text>
-                                )}
-                        </View>
                     </View>
-                    <View style={styles.autocompleteContainer}>
-                        <Text>Ending station</Text>
-                        {/*<Autocomplete { your props } />*/}
+                    <Text>Ending station:</Text>
+                    <View style={styles.container}>
+                        <Autocomplete
+                            autoCapitalize="none"
+                            autoCorrect={false}
+                            containerStyle={styles.autocompleteContainer}
+                            data={endStations.length === 1 && comp(endQuery, endStations[0].name) ? [] : endStations}
+                            defaultValue={endQuery}
+                            onChangeText={text => setEndQuery(text)}
+                            renderItem={(item) => (
+                                <TouchableOpacity onPress={() => setEndQuery(item.item.name)}>
+                                    <Text style={styles.itemText}>
+                                        {item.item.name}
+                                    </Text>
+                                </TouchableOpacity>
+                            )}
+                        />
                     </View>
                     <Button
                         title="Vai a Travel"
