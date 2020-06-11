@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import suisseIcon from '../../icons/switzerland64.png'
-import { View, SafeAreaView, StatusBar, Image, Text, Button, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, SafeAreaView, StatusBar, Image, Text, Button, TouchableOpacity, StyleSheet, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import Autocomplete from 'react-native-autocomplete-input';
 
 function Home({ navigation }) {
@@ -9,7 +9,6 @@ function Home({ navigation }) {
     const [startQuery, setStartQuery] = useState("")
     const [endStations, setEndStations] = useState([])
     const [endQuery, setEndQuery] = useState("")
-
 
     const API = "http://transport.opendata.ch/v1/locations?type=stations&query="
 
@@ -28,107 +27,112 @@ function Home({ navigation }) {
         });
     }, [endQuery])
 
-
     const comp = (a, b) => a.toLowerCase().trim() === b.toLowerCase().trim();
 
     return (
-        <View
-            style={{
-                backgroundColor: 'white',
-                flexDirection: 'column',
-                height: '100%',
-                paddingTop: 16,
-            }}
+        <TouchableWithoutFeedback 
+            onPress = {() => { Keyboard.dismiss() }}
         >
-            <StatusBar translucent backgroundColor="transparent" barStyle="dark-content" />
             <View
                 style={{
-                    backgroundColor: '#FDFDFE',
+                    backgroundColor: 'white',
+                    flexDirection: 'column',
+                    height: '100%',
+                    paddingTop: 16,
                 }}
             >
-                <SafeAreaView>
+                <StatusBar translucent backgroundColor="transparent" barStyle="dark-content" />
+                <View
+                    style={{
+                        backgroundColor: '#FDFDFE',
+                    }}
+                >
+                    <SafeAreaView>
+                        <View
+                            style={{
+                                padding: 16,
+                                flexDirection: 'row',
+                            }}
+                        >
+                            <Image
+                                style={{
+                                    width: 24,
+                                    height: 24,
+                                    marginHorizontal: 8
+                                }}
+                                source={suisseIcon}
+                            />
+                            <Text
+                                style={{
+                                    fontFamily: 'Montserrat-Medium',
+                                    fontSize: 16,
+                                    lineHeight: 24,
+                                    letterSpacing: 0.1
+                                }}
+                            >Switzerland travel system</Text>
+                        </View>
+                    </SafeAreaView>
+                </View>
+                <SafeAreaView
+                    style={{
+                        flex: 1,
+                    }}
+                >
                     <View
                         style={{
-                            padding: 16,
-                            flexDirection: 'row',
+                            flex: 1,
+                            justifyContent: 'center',
+                            alignItems: 'stretch',
+                            padding: 20,
                         }}
                     >
-                        <Image
-                            style={{
-                                width: 24,
-                                height: 24,
-                                marginHorizontal: 8
-                            }}
-                            source={suisseIcon}
+                        <Text>Starting station: </Text>
+                        <View style={styles.container}>
+                            <Autocomplete
+                                autoCapitalize="none"
+                                autoCorrect={false}
+                                containerStyle={styles.autocompleteContainer}
+                                data={startStations.length === 1 && comp(startQuery, startStations[0].name) ? [] : startStations}
+                                defaultValue={startQuery}
+                                onChangeText={text => setStartQuery(text)}
+                                placeholder="Enter a starting station"
+                                renderItem={(item) => (
+                                    <TouchableOpacity onPress={() => setStartQuery(item.item.name)}>
+                                        <Text style={styles.itemText}>
+                                            {item.item.name}
+                                        </Text>
+                                    </TouchableOpacity>
+                                )}
+                            />
+                        </View>
+                        <Text>Ending station:</Text>
+                        <View style={styles.container}>
+                            <Autocomplete
+                                autoCapitalize="none"
+                                autoCorrect={false}
+                                containerStyle={styles.autocompleteContainer}
+                                data={endStations.length === 1 && comp(endQuery, endStations[0].name) ? [] : endStations}
+                                defaultValue={endQuery}
+                                onChangeText={text => setEndQuery(text)}
+                                placeholder="Enter a destination station"
+                                renderItem={(item) => (
+                                    <TouchableOpacity onPress={() => {setEndQuery(item.item.name)
+                                    }}>
+                                        <Text style={styles.itemText}>
+                                            {item.item.name}
+                                        </Text>
+                                    </TouchableOpacity>
+                                )}
+                            />
+                        </View>
+                        <Button
+                            title="Travel"
+                            onPress={() => navigation.navigate('Travel', { id: "prova id" })}
                         />
-                        <Text
-                            style={{
-                                fontFamily: 'Montserrat-Medium',
-                                fontSize: 16,
-                                lineHeight: 24,
-                                letterSpacing: 0.1
-                            }}
-                        >Switzerland travel system</Text>
                     </View>
                 </SafeAreaView>
             </View>
-            <SafeAreaView
-                style={{
-                    flex: 1,
-                }}
-            >
-                <View
-                    style={{
-                        flex: 1,
-                        justifyContent: 'center',
-                        alignItems: 'stretch',
-                        padding: 20,
-                    }}
-                >
-                    <Text>Starting station: </Text>
-                    <View style={styles.container}>
-                        <Autocomplete
-                            autoCapitalize="none"
-                            autoCorrect={false}
-                            containerStyle={styles.autocompleteContainer}
-                            data={startStations.length === 1 && comp(startQuery, startStations[0].name) ? [] : startStations}
-                            defaultValue={startQuery}
-                            onChangeText={text => setStartQuery(text)}
-                            placeholder="Enter a starting station"
-                            renderItem={(item) => (
-                                <TouchableOpacity onPress={() => setStartQuery(item.item.name)}>
-                                    <Text style={styles.itemText}>
-                                        {item.item.name}
-                                    </Text>
-                                </TouchableOpacity>
-                            )}
-                        />
-                    </View>
-                    <Text>Ending station:</Text>
-                    <View style={styles.container}>
-                        <Autocomplete
-                            autoCapitalize="none"
-                            autoCorrect={false}
-                            containerStyle={styles.autocompleteContainer}
-                            data={endStations.length === 1 && comp(endQuery, endStations[0].name) ? [] : endStations}
-                            defaultValue={endQuery}
-                            onChangeText={text => setEndQuery(text)}
-                            renderItem={(item) => (
-                                <TouchableOpacity onPress={() => setEndQuery(item.item.name)}>
-                                    <Text style={styles.itemText}>
-                                        {item.item.name}
-                                    </Text>
-                                </TouchableOpacity>
-                            )}
-                        />
-                    </View>
-                    <Button
-                        title="Vai a Travel"
-                        onPress={() => navigation.navigate('Travel', { id: "prova id" })}
-                    />
-                </View>
-            </SafeAreaView>
-        </View>
+        </TouchableWithoutFeedback>
     );
 }
 
@@ -174,7 +178,8 @@ const styles = StyleSheet.create({
     },
     openingText: {
         textAlign: 'center'
-    }
+    },
+
 });
 
 export default Home
