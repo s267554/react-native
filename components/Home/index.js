@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import suisseIcon from '../../icons/switzerland64.png'
+import swapIcon from '../../icons/sort.png'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { View, SafeAreaView, StatusBar, Image, Text, Button, TouchableOpacity, StyleSheet, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import Autocomplete from 'react-native-autocomplete-input';
@@ -116,8 +117,7 @@ function Home({ navigation }) {
                             >
                                 <Image
                                     style={{
-                                        width: 24,
-                                        height: 24,
+                                        ...styles.icon,
                                         marginHorizontal: 8
                                     }}
                                     source={suisseIcon}
@@ -171,10 +171,15 @@ function Home({ navigation }) {
                                     )}
                                 />
                             </View>
-                            <Button
-                            onPress={() => {const [a, b] = [endQuery, startQuery]; setStartQuery(a); setEndQuery(b)}}
-                            title="Inverti"
-                            />
+                            <TouchableOpacity 
+                                onPress={() => {const [a, b] = [endQuery, startQuery]; setStartQuery(a); setEndQuery(b)}}
+                                style={styles.icon}
+                            >
+                                <Image
+                                    style={styles.icon}
+                                    source={swapIcon}
+                                />
+                            </TouchableOpacity>
                             <View style={styles.container}>
                                 <Autocomplete
                                     autoCapitalize="none"
@@ -200,6 +205,20 @@ function Home({ navigation }) {
                                     )}
                                 />
                             </View>
+                            <Text 
+                                onPress={showDatepicker}
+                                placeholder="Date:"
+                                style = {styles.textInputContainer}
+                            >
+                                {date.toDateString().split(' ').slice(0, 3).join(' ')}
+                            </Text>
+                            <Text 
+                                onPress={showTimepicker}
+                                placeholder="Time:"
+                                style = {styles.textInputContainer}
+                            >
+                                {date.toLocaleTimeString().split(':').slice(0, 2).join(':')}
+                            </Text>
                             <View>
                                 <View>
                                     <Text>Date:</Text>
@@ -266,6 +285,18 @@ function Home({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+    icon: {
+        height: 24,
+        width: 24
+    },
+    textInputContainer: {
+        marginVertical: 15,
+        paddingHorizontal: 4,
+        paddingVertical: 10,
+        borderColor: '#b9b9b9',
+        borderRadius: 1,
+        borderWidth: 1
+    },
     container: {
         paddingTop: 25,
         paddingBottom: 25
