@@ -150,6 +150,10 @@ function Home({ navigation }) {
                                     )}
                                 />
                             </View>
+                            <Button
+                            onPress={() => {const [a, b] = [endQuery, startQuery]; setStartQuery(a); setEndQuery(b)}}
+                            title="Inverti"
+                            />
                             <View style={styles.container}>
                                 <Autocomplete
                                     autoCapitalize="none"
@@ -242,6 +246,7 @@ function Home({ navigation }) {
 
 const styles = StyleSheet.create({
     container: {
+        paddingTop: 25,
         paddingBottom: 25
     },
     autocompleteContainer: {
