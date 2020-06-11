@@ -20,6 +20,15 @@ function Home({ navigation }) {
     const [startFlag, setStartFlag] = useState(false)
     const [endFlag, setEndFlag] = useState(false)
 
+    function time_format(d) {
+        hours = format_two_digits(d.getHours());
+        minutes = format_two_digits(d.getMinutes());
+        return hours + ":" + minutes + ":";
+    }
+
+    function format_two_digits(n) {
+        return n < 10 ? '0' + n : n;
+    }
 
     const API = "http://transport.opendata.ch/v1/locations?type=stations&query="
     const API_CONNECTIONS = "http://transport.opendata.ch/v1/connections?"
@@ -58,8 +67,20 @@ function Home({ navigation }) {
         showMode('time');
     };
 
+    function yyyymmdd(d) {
+        var mm = d.getMonth() + 1;
+        var dd = d.getDate();
+
+        return [d.getFullYear(),
+        (mm > 9 ? '' : '0') + mm,
+        (dd > 9 ? '' : '0') + dd
+        ].join('-');
+    };
+
     const findTravels = () => {
-        fetch(`${API_CONNECTIONS}from=${startStationId}&to=${endStationId}`).then(res => res.json()).then((json) => {
+        const time = time_format(date)
+        const day = yyyymmdd(date)
+        fetch(`${API_CONNECTIONS}from=${startStationId}&to=${endStationId}&date=${day}&time=${time}`).then(res => res.json()).then((json) => {
             const { connections } = json;
             setTravels(connections);
         });
@@ -233,7 +254,7 @@ function Home({ navigation }) {
                             <View>
                                 <Button
                                     title="Vai a Travel"
-                                    onPress={() => navigation.navigate('Travel', { id: "prova id" })}
+                                    onPress={() => navigation.navigate('Travel', { id: "ciao" })}
                                 />
                             </View>
                         </View>
