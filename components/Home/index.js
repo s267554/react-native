@@ -121,7 +121,7 @@ function Home({ navigation }) {
                                     autoCapitalize="none"
                                     autoCorrect={false}
                                     containerStyle={styles.autocompleteContainer}
-                                    data={(startStations.length > 0 && comp(startQuery, startStations[0].name)) && startFlag ? [] : startStations}
+                                    data={startFlag ? [] : startStations}
                                     onFocus={() => setStartFlag(false)}
                                     onBlur={() => setStartFlag(true)}
                                     defaultValue={startQuery}
@@ -142,7 +142,7 @@ function Home({ navigation }) {
                                     autoCapitalize="none"
                                     autoCorrect={false}
                                     containerStyle={styles.autocompleteContainer}
-                                    data={(endStations.length > 0 && comp(endQuery, endStations[0].name)) && endFlag ? [] : endStations}
+                                    data={endFlag ? [] : endStations}
                                     onFocus={() => setEndFlag(false)}
                                     onBlur={() => setEndFlag(true)}
                                     defaultValue={endQuery}
