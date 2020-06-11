@@ -216,7 +216,6 @@ function Home({ navigation }) {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#F5FCFF',
         paddingBottom: 25
     },
     autocompleteContainer: {
@@ -229,10 +228,6 @@ const styles = StyleSheet.create({
         margin: 2
     },
     descriptionContainer: {
-        // `backgroundColor` needs to be set otherwise the
-        // autocomplete input will disappear on text input.
-        backgroundColor: '#F5FCFF',
-        marginTop: 25
     },
     infoText: {
         textAlign: 'center'
