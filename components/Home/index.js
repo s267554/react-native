@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import suisseIcon from '../../icons/switzerland64.png'
-import { View, SafeAreaView, StatusBar, Image, Text, Button, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, SafeAreaView, StatusBar, Image, Text, Button, TouchableOpacity, StyleSheet, Keyboard } from 'react-native';
 import Autocomplete from 'react-native-autocomplete-input';
+import { ScrollView } from 'react-native-gesture-handler';
 
 function Home({ navigation }) {
 
@@ -9,6 +10,9 @@ function Home({ navigation }) {
     const [startQuery, setStartQuery] = useState("")
     const [endStations, setEndStations] = useState([])
     const [endQuery, setEndQuery] = useState("")
+
+    const [startFlag, setStartFlag] = useState(false)
+    const [endFlag, setEndFlag] = useState(false)
 
 
     const API = "http://transport.opendata.ch/v1/locations?type=stations&query="
@@ -40,6 +44,7 @@ function Home({ navigation }) {
                 paddingTop: 16,
             }}
         >
+            <ScrollView keyboardShouldPersistTaps='handled'>
             <StatusBar translucent backgroundColor="transparent" barStyle="dark-content" />
             <View
                 style={{
@@ -91,12 +96,14 @@ function Home({ navigation }) {
                             autoCapitalize="none"
                             autoCorrect={false}
                             containerStyle={styles.autocompleteContainer}
-                            data={startStations.length === 1 && comp(startQuery, startStations[0].name) ? [] : startStations}
+                            data={(startStations.length > 0 && comp(startQuery, startStations[0].name)) && startFlag ? [] : startStations}
+                            onFocus={() => setStartFlag(false)}
+                            onBlur={() => setStartFlag(true)}
                             defaultValue={startQuery}
                             onChangeText={text => setStartQuery(text)}
-                            placeholder="Enter a starting station"
+                            placeholder="Enter a departing station"
                             renderItem={(item) => (
-                                <TouchableOpacity onPress={() => setStartQuery(item.item.name)}>
+                                <TouchableOpacity onPress={() => {Keyboard.dismiss(); setStartFlag(true); setStartQuery(item.item.name)}}>
                                     <Text style={styles.itemText}>
                                         {item.item.name}
                                     </Text>
@@ -110,11 +117,14 @@ function Home({ navigation }) {
                             autoCapitalize="none"
                             autoCorrect={false}
                             containerStyle={styles.autocompleteContainer}
-                            data={endStations.length === 1 && comp(endQuery, endStations[0].name) ? [] : endStations}
+                            data={(endStations.length > 0 && comp(endQuery, endStations[0].name)) && endFlag ? [] : endStations}
+                            onFocus={() => setEndFlag(false)}
+                            onBlur={() => setEndFlag(true)}
                             defaultValue={endQuery}
                             onChangeText={text => setEndQuery(text)}
+                            placeholder="Enter an arrival station"
                             renderItem={(item) => (
-                                <TouchableOpacity onPress={() => setEndQuery(item.item.name)}>
+                                <TouchableOpacity onPress={() => {Keyboard.dismiss(); setEndFlag(true); setEndQuery(item.item.name)}}>
                                     <Text style={styles.itemText}>
                                         {item.item.name}
                                     </Text>
@@ -128,6 +138,7 @@ function Home({ navigation }) {
                     />
                 </View>
             </SafeAreaView>
+            </ScrollView>
         </View>
     );
 }
@@ -135,16 +146,12 @@ function Home({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#F5FCFF',
-        flex: 1,
-        paddingTop: 25
+        paddingBottom: 25
     },
     autocompleteContainer: {
-        flex: 1,
         left: 0,
-        position: 'absolute',
         right: 0,
-        top: 0,
-        zIndex: 1
+        top: 0
     },
     itemText: {
         fontSize: 15,
