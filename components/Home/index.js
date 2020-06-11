@@ -205,20 +205,24 @@ function Home({ navigation }) {
                                     )}
                                 />
                             </View>
+                            <View
+                                style={{flexDirection: "row"}}
+                            >
                             <Text 
                                 onPress={showDatepicker}
                                 placeholder="Date:"
-                                style = {styles.textInputContainer}
+                                style = {{...styles.textInputContainer, marginEnd: 15}}
                             >
                                 {date.toDateString().split(' ').slice(0, 3).join(' ')}
                             </Text>
                             <Text 
                                 onPress={showTimepicker}
                                 placeholder="Time:"
-                                style = {styles.textInputContainer}
+                                style = {{...styles.textInputContainer, marginStart: 15}}
                             >
                                 {date.toLocaleTimeString().split(':').slice(0, 2).join(':')}
                             </Text>
+                            </View>
                             <View>
                                 <View>
                                     <Text>Date:</Text>
@@ -290,6 +294,7 @@ const styles = StyleSheet.create({
         width: 24
     },
     textInputContainer: {
+        flex: 1,
         marginVertical: 15,
         paddingHorizontal: 4,
         paddingVertical: 10,
