@@ -125,7 +125,6 @@ function Home({ navigation }) {
                                 padding: 20,
                             }}
                         >
-                            <Text>Starting station: </Text>
                             <View style={styles.container}>
                                 <Autocomplete
                                     autoCapitalize="none"
@@ -136,7 +135,7 @@ function Home({ navigation }) {
                                     onBlur={() => setStartFlag(true)}
                                     defaultValue={startQuery}
                                     onChangeText={text => setStartQuery(text)}
-                                    placeholder="Enter a departing station"
+                                    placeholder="From:"
                                     renderItem={(item) => (
                                         <TouchableOpacity onPress={() => {
                                             Keyboard.dismiss();
@@ -151,7 +150,6 @@ function Home({ navigation }) {
                                     )}
                                 />
                             </View>
-                            <Text>Ending station:</Text>
                             <View style={styles.container}>
                                 <Autocomplete
                                     autoCapitalize="none"
@@ -162,7 +160,7 @@ function Home({ navigation }) {
                                     onBlur={() => setEndFlag(true)}
                                     defaultValue={endQuery}
                                     onChangeText={text => setEndQuery(text)}
-                                    placeholder="Enter an arrival station"
+                                    placeholder="To:"
                                     renderItem={(item) => (
                                         <TouchableOpacity onPress={() => {
                                             Keyboard.dismiss();
@@ -244,7 +242,6 @@ function Home({ navigation }) {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#F5FCFF',
         paddingBottom: 25
     },
     autocompleteContainer: {
@@ -257,10 +254,6 @@ const styles = StyleSheet.create({
         margin: 2
     },
     descriptionContainer: {
-        // `backgroundColor` needs to be set otherwise the
-        // autocomplete input will disappear on text input.
-        backgroundColor: '#F5FCFF',
-        marginTop: 25
     },
     infoText: {
         textAlign: 'center'
