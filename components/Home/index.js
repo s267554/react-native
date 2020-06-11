@@ -8,6 +8,8 @@ import { ScrollView } from 'react-native-gesture-handler';
 function Home({ navigation }) {
 
     const [startStations, setStartStations] = useState([])
+    const [startStationId, setStartStationId] = useState(undefined)
+    const [endStationId, setEndStationId] = useState(undefined)
     const [startQuery, setStartQuery] = useState("")
     const [endStations, setEndStations] = useState([])
     const [endQuery, setEndQuery] = useState("")
@@ -20,6 +22,7 @@ function Home({ navigation }) {
 
 
     const API = "http://transport.opendata.ch/v1/locations?type=stations&query="
+    const API_CONNECTIONS = "http://transport.opendata.ch/v1/connections?"
 
     useEffect(() => {
         fetch(`${API}${startQuery}`).then(res => res.json()).then((json) => {
@@ -56,7 +59,10 @@ function Home({ navigation }) {
     };
 
     const findTravels = () => {
-        console.log("ciaociao")
+        fetch(`${API_CONNECTIONS}from=${startStationId}&to=${endStationId}`).then(res => res.json()).then((json) => {
+            const { connections } = json;
+            setTravels(connections);
+        });
     }
 
     const comp = (a, b) => a.toLowerCase().trim() === b.toLowerCase().trim();
@@ -132,7 +138,12 @@ function Home({ navigation }) {
                                     onChangeText={text => setStartQuery(text)}
                                     placeholder="Enter a departing station"
                                     renderItem={(item) => (
-                                        <TouchableOpacity onPress={() => { Keyboard.dismiss(); setStartFlag(true); setStartQuery(item.item.name) }}>
+                                        <TouchableOpacity onPress={() => {
+                                            Keyboard.dismiss();
+                                            setStartFlag(true);
+                                            setStartQuery(item.item.name)
+                                            setStartStationId(item.item.id)
+                                        }}>
                                             <Text style={styles.itemText}>
                                                 {item.item.name}
                                             </Text>
@@ -153,7 +164,12 @@ function Home({ navigation }) {
                                     onChangeText={text => setEndQuery(text)}
                                     placeholder="Enter an arrival station"
                                     renderItem={(item) => (
-                                        <TouchableOpacity onPress={() => { Keyboard.dismiss(); setEndFlag(true); setEndQuery(item.item.name) }}>
+                                        <TouchableOpacity onPress={() => {
+                                            Keyboard.dismiss();
+                                            setEndFlag(true);
+                                            setEndQuery(item.item.name)
+                                            setEndStationId(item.item.id)
+                                        }}>
                                             <Text style={styles.itemText}>
                                                 {item.item.name}
                                             </Text>
@@ -198,7 +214,19 @@ function Home({ navigation }) {
                                 <Button
                                     title="Cerca"
                                     onPress={findTravels}
+                                    disabled={startStationId == undefined || endStationId == undefined}
                                 />
+                            </View>
+                            <View>
+                                {travels.map((c) => {
+                                    return (
+                                        <>
+                                            <Text>{c.from.station.name}</Text>
+                                            <Text>{c.to.station.name}</Text>
+                                            <Text>{c.duration}</Text>
+                                        </>
+                                    )
+                                })}
                             </View>
                             <View>
                                 <Button
