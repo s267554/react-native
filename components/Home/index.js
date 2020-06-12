@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import suisseIcon from '../../icons/switzerland64.png'
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { View, SafeAreaView, StatusBar, Image, Text, Button, TouchableOpacity, StyleSheet, Keyboard, TouchableWithoutFeedback } from 'react-native';
+import { View, SafeAreaView, StatusBar, Image, Text, Button, TouchableOpacity, StyleSheet, Keyboard, TouchableWithoutFeedback, ColorPropType } from 'react-native';
 import Autocomplete from 'react-native-autocomplete-input';
 import { ScrollView } from 'react-native-gesture-handler';
 import IconMaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -93,13 +93,14 @@ function Home({ navigation }) {
         <ScrollView 
             keyboardShouldPersistTaps='handled'
             style={{
-                backgroundColor: '#FDFDFE',
+                backgroundColor: '#EBEDEF',
                 flexDirection: 'column',
                 height: '100%',
-                paddingTop: 16,
+                //paddingTop: 16,
             }}
         >
             <StatusBar translucent backgroundColor="transparent" barStyle="dark-content" />
+            <View style={styles.searchContainer}>
             <View
                 style={{
                     padding: 16,
@@ -127,16 +128,11 @@ function Home({ navigation }) {
                 }}
             >
                 <View style={styles.container}>
-                    <View style = {styles.stationStyle}>
-                        <IconMaterialCommunity
-                            name = "arrow-top-right"
-                            size = {40}
-                        />
-                        {/* <Text
-                            style = {styles.commonText}
-                        >Departure station:
-                        </Text> */}
-                    </View>
+                    
+                     <IconMaterialCommunity
+                         name = "arrow-top-right"
+                         size = {40}
+                     />
                     <Autocomplete
                         autoCapitalize="none"
                         autoCorrect={false}
@@ -171,16 +167,10 @@ function Home({ navigation }) {
                     />
                 </TouchableOpacity>
                 <View style={styles.container}>
-                    <View style = {styles.stationStyle}>
-                        <IconMaterialCommunity
-                            name = "arrow-bottom-right"
-                            size = {40}
-                        />
-                        {/* <Text
-                            style = {styles.commonText}>
-                            Arrival station:
-                        </Text> */}
-                    </View>
+                    <IconMaterialCommunity
+                        name = "arrow-bottom-right"
+                        size = {40}
+                    />
                     <Autocomplete
                         autoCapitalize="none"
                         autoCorrect={false}
@@ -275,7 +265,7 @@ function Home({ navigation }) {
                     <Button
                         title="Cerca"
                         onPress={findTravels}
-                        disabled={startStationId == undefined || endStationId == undefined}
+                        disabled={startStationId == undefined || endStationId == undefined}                      
                     />
                 </View>
                 {travels.map((travel) => {
@@ -288,15 +278,21 @@ function Home({ navigation }) {
                     />
                 </View>
             </SafeAreaView>
+            </View>
         </ScrollView>
     );
 }
 
 const styles = StyleSheet.create({
-    icon: {
+    icon: { //not used
         height: 24,
         width: 24,
         alignSelf: "flex-end"
+    },
+    searchContainer: {
+        margin: 15,
+        backgroundColor: 'white',
+        borderRadius: 10
     },
     headText:{
         fontFamily: 'Montserrat-Medium',
@@ -305,7 +301,7 @@ const styles = StyleSheet.create({
         lineHeight: 24,
         letterSpacing: 0.1,
     },
-    commonText:{
+    commonText:{ //not used
         fontFamily: 'Montserrat-Medium',
         fontSize: 16,
         lineHeight: 24,
@@ -329,7 +325,7 @@ const styles = StyleSheet.create({
         marginLeft: 15,
         left: 0,
         right: 0,
-        top: 0
+        top: 0,
     },
     itemText: {
         fontSize: 15,
@@ -337,26 +333,25 @@ const styles = StyleSheet.create({
     },
     descriptionContainer: {
     },
-    infoText: {
+    infoText: { //not used
         textAlign: 'center'
     },
-    titleText: {
+    titleText: { //not used
         fontSize: 18,
         fontWeight: '500',
         marginBottom: 10,
         marginTop: 10,
         textAlign: 'center'
     },
-    directorText: {
+    directorText: { //not used
         color: 'grey',
         fontSize: 12,
         marginBottom: 10,
         textAlign: 'center'
     },
-    openingText: {
+    openingText: { //not used
         textAlign: 'center'
-    }
-
+    },
 });
 
 export default Home
