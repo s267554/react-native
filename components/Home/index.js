@@ -5,6 +5,7 @@ import { View, SafeAreaView, StatusBar, Image, Text, Button, TouchableOpacity, S
 import Autocomplete from 'react-native-autocomplete-input';
 import { ScrollView } from 'react-native-gesture-handler';
 import IconMaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
+import Connection from '../Connection';
 
 
 function Home({ navigation }) {
@@ -277,17 +278,9 @@ function Home({ navigation }) {
                         disabled={startStationId == undefined || endStationId == undefined}
                     />
                 </View>
-                <View>
-                    {travels.map((c) => {
-                        return (
-                            <>
-                                <Text>{c.from.station.name}</Text>
-                                <Text>{c.to.station.name}</Text>
-                                <Text>{c.duration}</Text>
-                            </>
-                        )
-                    })}
-                </View>
+                {travels.map((travel) => {
+                    return <Connection connection={travel}/>
+                })}
                 <View>
                     <Button
                         title="Vai a Travel"
