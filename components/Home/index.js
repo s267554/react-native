@@ -148,6 +148,7 @@ function Home({ navigation }) {
                                     autoCapitalize="none"
                                     autoCorrect={false}
                                     containerStyle={styles.autocompleteContainer}
+                                    inputContainerStyle={{borderWidth: 0}}
                                     data={startFlag ? [] : startStations}
                                     onFocus={() => setStartFlag(false)}
                                     onBlur={() => setStartFlag(true)}
@@ -191,6 +192,7 @@ function Home({ navigation }) {
                                     autoCapitalize="none"
                                     autoCorrect={false}
                                     containerStyle={styles.autocompleteContainer}
+                                    inputContainerStyle={{borderWidth: 0}}
                                     data={endFlag ? [] : endStations}
                                     onFocus={() => setEndFlag(false)}
                                     onBlur={() => setEndFlag(true)}
@@ -320,9 +322,9 @@ const styles = StyleSheet.create({
         marginVertical: 15,
         paddingHorizontal: 4,
         paddingVertical: 10,
-        borderColor: '#b9b9b9',
-        borderRadius: 1,
-        borderWidth: 1
+        // borderColor: '#b9b9b9',
+        // borderRadius: 1,
+        // borderWidth: 1
     },
     container: {
         flexDirection: "row",
