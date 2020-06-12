@@ -216,20 +216,34 @@ function Home({ navigation }) {
                             <View
                                 style={{ flexDirection: "row" }}
                             >
-                                <Text
+                                <TouchableOpacity
                                     onPress={showDatepicker}
-                                    placeholder="Date:"
-                                    style={{ ...styles.textInputContainer, marginEnd: 15 }}
+                                    style={styles.textInputContainer}
                                 >
-                                    {date.toDateString().split(' ').slice(0, 3).join(' ')}
-                                </Text>
-                                <Text
+                                    <IconMaterialCommunity
+                                        name="calendar"
+                                        size={40}
+                                    />
+                                    <Text
+                                        placeholder="Date:"
+                                    >
+                                        {date.toDateString().split(' ').slice(0, 3).join(' ')}
+                                    </Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity
                                     onPress={showTimepicker}
-                                    placeholder="Time:"
-                                    style={{ ...styles.textInputContainer, marginStart: 15 }}
+                                    style={styles.textInputContainer}
                                 >
-                                    {date.toLocaleTimeString().split(':').slice(0, 2).join(':')}
-                                </Text>
+                                    <Text
+                                        placeholder="Time:"
+                                    >
+                                        {date.toLocaleTimeString().split(':').slice(0, 2).join(':')}
+                                    </Text>
+                                    <IconMaterialCommunity
+                                        name="clock"
+                                        size={40}
+                                    />
+                                </TouchableOpacity>
                             </View>
                             <View>
                                 <View>
@@ -317,14 +331,11 @@ const styles = StyleSheet.create({
         margin: 5
     },
     textInputContainer: {
+        flexDirection: "row",
         flex: 1,
-        textAlign: 'center',
-        marginVertical: 15,
-        paddingHorizontal: 4,
-        paddingVertical: 10,
-        // borderColor: '#b9b9b9',
-        // borderRadius: 1,
-        // borderWidth: 1
+        alignItems: "center",
+        justifyContent: "space-evenly",
+        marginHorizontal: 20
     },
     container: {
         flexDirection: "row",
