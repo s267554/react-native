@@ -297,7 +297,8 @@ function Home({ navigation }) {
 const styles = StyleSheet.create({
     icon: {
         height: 24,
-        width: 24
+        width: 24,
+        alignSelf: "flex-end"
     },
     headText:{
         fontFamily: 'Montserrat-Medium',
@@ -326,7 +327,8 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: "row",
         paddingTop: 25,
-        paddingBottom: 25
+       // paddingTop: 25,
+        paddingBottom: 35
     },
     autocompleteContainer: {
         marginLeft: 15,
