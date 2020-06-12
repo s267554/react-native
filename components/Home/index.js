@@ -172,6 +172,7 @@ function Home({ navigation }) {
                             <TouchableOpacity
                                 onPress={() => { const [a, b] = [endQuery, startQuery]; setStartQuery(a); setEndQuery(b) }}
                                 style={styles.icon}
+                                
                             >
                                 <Image
                                     style={styles.icon}
@@ -299,7 +300,8 @@ function Home({ navigation }) {
 const styles = StyleSheet.create({
     icon: {
         height: 24,
-        width: 24
+        width: 24,
+        alignSelf: "flex-end"
     },
     headText:{
         fontFamily: 'Montserrat-Medium',
@@ -326,8 +328,8 @@ const styles = StyleSheet.create({
         borderWidth: 1
     },
     container: {
-        paddingTop: 25,
-        paddingBottom: 25
+       // paddingTop: 25,
+        paddingBottom: 35
     },
     autocompleteContainer: {
         left: 0,
