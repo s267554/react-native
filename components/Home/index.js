@@ -5,7 +5,8 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { View, SafeAreaView, StatusBar, Image, Text, Button, TouchableOpacity, StyleSheet, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import Autocomplete from 'react-native-autocomplete-input';
 import { ScrollView } from 'react-native-gesture-handler';
-import { Icon } from 'react-native-vector-icons/Icon';
+import IconMaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
+
 
 function Home({ navigation }) {
 
@@ -27,7 +28,6 @@ function Home({ navigation }) {
         minutes = format_two_digits(d.getMinutes());
         return hours + ":" + minutes + ":";
     }
-
     function format_two_digits(n) {
         return n < 10 ? '0' + n : n;
     }
@@ -89,7 +89,6 @@ function Home({ navigation }) {
     }
 
     const comp = (a, b) => a.toLowerCase().trim() === b.toLowerCase().trim();
-
     return (
         <TouchableWithoutFeedback
             onPress={() => { Keyboard.dismiss() }}
@@ -119,12 +118,7 @@ function Home({ navigation }) {
                             source={suisseIcon}
                         />
                         <Text
-                            style={{
-                                fontFamily: 'Montserrat-Medium',
-                                fontSize: 16,
-                                lineHeight: 24,
-                                letterSpacing: 0.1
-                            }}
+                            style={styles.headText}
                         >Switzerland travel system</Text>
                     </View>
                     <SafeAreaView
@@ -141,10 +135,16 @@ function Home({ navigation }) {
                             }}
                         >
                             <View style={styles.container}>
-                                <Icon
-                                    name='arrow-up-right'
-                                    type="feather"
-                                />
+                                <View style = {styles.stationStyle}>
+                                    <IconMaterialCommunity
+                                        name = "arrow-top-right"
+                                        size = {35}
+                                    />
+                                    <Text
+                                        style = {styles.commonText}
+                                    >Departure station:
+                                    </Text>
+                                </View>
                                 <Autocomplete
                                     autoCapitalize="none"
                                     autoCorrect={false}
@@ -179,6 +179,16 @@ function Home({ navigation }) {
                                 />
                             </TouchableOpacity>
                             <View style={styles.container}>
+                                <View style = {styles.stationStyle}>
+                                    <IconMaterialCommunity
+                                        name = "arrow-bottom-right"
+                                        size = {35}
+                                    />
+                                    <Text
+                                        style = {styles.commonText}>
+                                        Arrival station:
+                                    </Text>
+                                </View>
                                 <Autocomplete
                                     autoCapitalize="none"
                                     autoCorrect={false}
@@ -291,6 +301,20 @@ const styles = StyleSheet.create({
         height: 24,
         width: 24
     },
+    headText:{
+        fontFamily: 'Montserrat-Medium',
+        fontWeight: "bold",
+        fontSize: 20,
+        lineHeight: 24,
+        letterSpacing: 0.1,
+    },
+    commonText:{
+        fontFamily: 'Montserrat-Medium',
+        fontSize: 16,
+        lineHeight: 24,
+        letterSpacing: 0.1,
+        margin: 5
+    },
     textInputContainer: {
         flex: 1,
         marginVertical: 15,
@@ -334,6 +358,10 @@ const styles = StyleSheet.create({
     openingText: {
         textAlign: 'center'
     },
+    stationStyle: {
+        flex: 1,
+        flexDirection: "row"
+    }
 
 });
 
