@@ -110,7 +110,6 @@ function Home({ navigation }) {
                             flexDirection: 'row',
                         }}
                     >
-<<<<<<< HEAD
                         <Image
                             style={{
                                 width: 24,
@@ -127,32 +126,6 @@ function Home({ navigation }) {
                                 letterSpacing: 0.1
                             }}
                         >Switzerland travel system</Text>
-=======
-                        <SafeAreaView>
-                            <View
-                                style={{
-                                    padding: 16,
-                                    flexDirection: 'row',
-                                }}
-                            >
-                                <Image
-                                    style={{
-                                        ...styles.icon,
-                                        marginHorizontal: 8
-                                    }}
-                                    source={suisseIcon}
-                                />
-                                <Text
-                                    style={{
-                                        fontFamily: 'Montserrat-Medium',
-                                        fontSize: 16,
-                                        lineHeight: 24,
-                                        letterSpacing: 0.1
-                                    }}
-                                >Switzerland travel system</Text>
-                            </View>
-                        </SafeAreaView>
->>>>>>> 59988e00124f983d185fc7cffbaf34f140168544
                     </View>
                     <SafeAreaView
                         style={{
@@ -196,8 +169,8 @@ function Home({ navigation }) {
                                     )}
                                 />
                             </View>
-                            <TouchableOpacity 
-                                onPress={() => {const [a, b] = [endQuery, startQuery]; setStartQuery(a); setEndQuery(b)}}
+                            <TouchableOpacity
+                                onPress={() => { const [a, b] = [endQuery, startQuery]; setStartQuery(a); setEndQuery(b) }}
                                 style={styles.icon}
                             >
                                 <Image
@@ -231,22 +204,22 @@ function Home({ navigation }) {
                                 />
                             </View>
                             <View
-                                style={{flexDirection: "row"}}
+                                style={{ flexDirection: "row" }}
                             >
-                            <Text 
-                                onPress={showDatepicker}
-                                placeholder="Date:"
-                                style = {{...styles.textInputContainer, marginEnd: 15}}
-                            >
-                                {date.toDateString().split(' ').slice(0, 3).join(' ')}
-                            </Text>
-                            <Text 
-                                onPress={showTimepicker}
-                                placeholder="Time:"
-                                style = {{...styles.textInputContainer, marginStart: 15}}
-                            >
-                                {date.toLocaleTimeString().split(':').slice(0, 2).join(':')}
-                            </Text>
+                                <Text
+                                    onPress={showDatepicker}
+                                    placeholder="Date:"
+                                    style={{ ...styles.textInputContainer, marginEnd: 15 }}
+                                >
+                                    {date.toDateString().split(' ').slice(0, 3).join(' ')}
+                                </Text>
+                                <Text
+                                    onPress={showTimepicker}
+                                    placeholder="Time:"
+                                    style={{ ...styles.textInputContainer, marginStart: 15 }}
+                                >
+                                    {date.toLocaleTimeString().split(':').slice(0, 2).join(':')}
+                                </Text>
                             </View>
                             <View>
                                 <View>
