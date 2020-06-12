@@ -159,7 +159,10 @@ function Home({ navigation }) {
                     />
                 </View>
                 <TouchableOpacity
-                    onPress={() => { const [a, b] = [endQuery, startQuery]; setStartQuery(a); setEndQuery(b) }}
+                    onPress={() => { 
+                        const [a, b] = [endQuery, startQuery]; setStartQuery(a); setEndQuery(b)
+                        const [c, d] = [endStationId, startStationId]; setStartStationId(c); setEndStationId(d) 
+                    }}
                 >
                     <IconMaterialCommunity
                         name = "swap-vertical"
