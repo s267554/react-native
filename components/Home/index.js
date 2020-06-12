@@ -317,6 +317,7 @@ const styles = StyleSheet.create({
     },
     textInputContainer: {
         flex: 1,
+        textAlign: 'center',
         marginVertical: 15,
         paddingHorizontal: 4,
         paddingVertical: 10,
