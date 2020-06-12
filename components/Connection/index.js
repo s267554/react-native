@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import Section from '../Section';
 
 function Connection({ connection }) {
 
@@ -10,19 +11,27 @@ function Connection({ connection }) {
 
     if (expand) {
         return (
-            <TouchableOpacity
+            <View
                 style={{
                     padding: 10,
                     margin: 10,
-                    backgroundColor: 'red',
+                    backgroundColor: '#ffcccc',
                     borderRadius: 1
                 }}
-                onPress={() => {setExpand(!expand)}}
+                //onPress={() => {setExpand(!expand)}}
             >
+                <TouchableOpacity
+                    onPress={() => {setExpand(false)}}
+                    style={{margin: 2}}
+                >
+                    <Text>Close</Text>
+                </TouchableOpacity>
                 {c.sections.map((section) => {
-                    return <Text>{section.journey.name}</Text>
+                    return (
+                        <Section section={section}/>
+                    )
                 })}
-            </TouchableOpacity>
+            </View>
         )
     }
     else {
@@ -31,10 +40,10 @@ function Connection({ connection }) {
                 style={{
                     padding: 10,
                     margin: 10,
-                    backgroundColor: 'lightgrey',
+                    backgroundColor: 'grey',
                     borderRadius: 1
                 }}
-                onPress={() => {setExpand(!expand)}}
+                onPress={() => {setExpand(true)}}
             >
                     <Text>{c.from.station.name}</Text>
                     <Text>{c.to.station.name}</Text>
