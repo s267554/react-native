@@ -4,6 +4,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { View, SafeAreaView, StatusBar, Image, Text, Button, TouchableOpacity, StyleSheet, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import Autocomplete from 'react-native-autocomplete-input';
 import { ScrollView } from 'react-native-gesture-handler';
+import { Icon } from 'react-native-vector-icons/Icon';
 
 function Home({ navigation }) {
 
@@ -94,7 +95,7 @@ function Home({ navigation }) {
         >
             <View
                 style={{
-                    backgroundColor: 'white',
+                    backgroundColor: '#FDFDFE',
                     flexDirection: 'column',
                     height: '100%',
                     paddingTop: 16,
@@ -104,34 +105,26 @@ function Home({ navigation }) {
                     <StatusBar translucent backgroundColor="transparent" barStyle="dark-content" />
                     <View
                         style={{
-                            backgroundColor: '#FDFDFE',
+                            padding: 16,
+                            flexDirection: 'row',
                         }}
                     >
-                        <SafeAreaView>
-                            <View
-                                style={{
-                                    padding: 16,
-                                    flexDirection: 'row',
-                                }}
-                            >
-                                <Image
-                                    style={{
-                                        width: 24,
-                                        height: 24,
-                                        marginHorizontal: 8
-                                    }}
-                                    source={suisseIcon}
-                                />
-                                <Text
-                                    style={{
-                                        fontFamily: 'Montserrat-Medium',
-                                        fontSize: 16,
-                                        lineHeight: 24,
-                                        letterSpacing: 0.1
-                                    }}
-                                >Switzerland travel system</Text>
-                            </View>
-                        </SafeAreaView>
+                        <Image
+                            style={{
+                                width: 24,
+                                height: 24,
+                                marginHorizontal: 8
+                            }}
+                            source={suisseIcon}
+                        />
+                        <Text
+                            style={{
+                                fontFamily: 'Montserrat-Medium',
+                                fontSize: 16,
+                                lineHeight: 24,
+                                letterSpacing: 0.1
+                            }}
+                        >Switzerland travel system</Text>
                     </View>
                     <SafeAreaView
                         style={{
@@ -147,6 +140,10 @@ function Home({ navigation }) {
                             }}
                         >
                             <View style={styles.container}>
+                                <Icon
+                                    name='arrow-up-right'
+                                    type="feather"
+                                />
                                 <Autocomplete
                                     autoCapitalize="none"
                                     autoCorrect={false}
