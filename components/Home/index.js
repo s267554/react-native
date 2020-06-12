@@ -137,7 +137,7 @@ function Home({ navigation }) {
                                 <View style = {styles.stationStyle}>
                                     <IconMaterialCommunity
                                         name = "arrow-top-right"
-                                        size = {35}
+                                        size = {40}
                                     />
                                     {/* <Text
                                         style = {styles.commonText}
@@ -173,14 +173,14 @@ function Home({ navigation }) {
                             >
                                 <IconMaterialCommunity
                                     name = "swap-vertical"
-                                    size = {35}
+                                    size = {40}
                                 />
                             </TouchableOpacity>
                             <View style={styles.container}>
                                 <View style = {styles.stationStyle}>
                                     <IconMaterialCommunity
                                         name = "arrow-bottom-right"
-                                        size = {35}
+                                        size = {40}
                                     />
                                     {/* <Text
                                         style = {styles.commonText}>
@@ -364,7 +364,6 @@ const styles = StyleSheet.create({
     stationStyle: {
         // flex: 1,
         // flexDirection: "row"
-        alignSelf: "center"
     }
 
 });
