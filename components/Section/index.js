@@ -8,6 +8,8 @@ function Section({ section }) {
 
     const s = section
 
+    let walk = false
+
     if (expand) {
         return (
             <TouchableOpacity
@@ -24,6 +26,7 @@ function Section({ section }) {
         )
     }
     else {
+        if(s.journey == null) walk = true
         return (
             <TouchableOpacity
                 style={{
@@ -32,9 +35,9 @@ function Section({ section }) {
                     backgroundColor: 'lightgrey',
                     borderRadius: 1
                 }}
-                onPress={() => {setExpand(true)}}
+                onPress={() => {if(walk) ; else setExpand(true)}}
             >
-                <Text>{s.departure.station.name} - {s.journey.name} - {s.arrival.station.name}</Text>
+                <Text>{s.departure.station.name} - {walk ? ("walk") : s.journey.name} - {s.arrival.station.name}</Text>
             </TouchableOpacity>
         )
     }
