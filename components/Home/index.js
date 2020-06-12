@@ -89,224 +89,219 @@ function Home({ navigation }) {
 
     const comp = (a, b) => a.toLowerCase().trim() === b.toLowerCase().trim();
     return (
-        <TouchableWithoutFeedback
-            onPress={() => { Keyboard.dismiss() }}
+        <ScrollView 
+            keyboardShouldPersistTaps='handled'
+            style={{
+                backgroundColor: '#FDFDFE',
+                flexDirection: 'column',
+                height: '100%',
+                paddingTop: 16,
+            }}
         >
+            <StatusBar translucent backgroundColor="transparent" barStyle="dark-content" />
             <View
                 style={{
-                    backgroundColor: '#FDFDFE',
-                    flexDirection: 'column',
-                    height: '100%',
-                    paddingTop: 16,
+                    padding: 16,
+                    flexDirection: 'row',
                 }}
             >
-                <ScrollView keyboardShouldPersistTaps='handled'>
-                    <StatusBar translucent backgroundColor="transparent" barStyle="dark-content" />
-                    <View
-                        style={{
-                            padding: 16,
-                            flexDirection: 'row',
-                        }}
-                    >
-                        <Image
-                            style={{
-                                width: 24,
-                                height: 24,
-                                marginHorizontal: 8
-                            }}
-                            source={suisseIcon}
+                <Image
+                    style={{
+                        width: 24,
+                        height: 24,
+                        marginHorizontal: 8
+                    }}
+                    source={suisseIcon}
+                />
+                <Text
+                    style={styles.headText}
+                >Switzerland travel system</Text>
+            </View>
+            <SafeAreaView
+                style={{
+                    flex: 1,
+                }}
+            >
+                <View
+                    style={{
+                        flex: 1,
+                        justifyContent: 'center',
+                        alignItems: 'stretch',
+                        padding: 20,
+                    }}
+                >
+                    <View style={styles.container}>
+                        <View style = {styles.stationStyle}>
+                            <IconMaterialCommunity
+                                name = "arrow-top-right"
+                                size = {40}
+                            />
+                            {/* <Text
+                                style = {styles.commonText}
+                            >Departure station:
+                            </Text> */}
+                        </View>
+                        <Autocomplete
+                            autoCapitalize="none"
+                            autoCorrect={false}
+                            containerStyle={styles.autocompleteContainer}
+                            inputContainerStyle={{borderWidth: 0}}
+                            data={startFlag ? [] : startStations}
+                            onFocus={() => setStartFlag(false)}
+                            onBlur={() => setStartFlag(true)}
+                            defaultValue={startQuery}
+                            onChangeText={text => setStartQuery(text)}
+                            placeholder="From:"
+                            renderItem={(item) => (
+                                <TouchableOpacity onPress={() => {
+                                    Keyboard.dismiss();
+                                    setStartFlag(true);
+                                    setStartQuery(item.item.name)
+                                    setStartStationId(item.item.id)
+                                }}>
+                                    <Text style={styles.itemText}>
+                                        {item.item.name}
+                                    </Text>
+                                </TouchableOpacity>
+                            )}
                         />
-                        <Text
-                            style={styles.headText}
-                        >Switzerland travel system</Text>
                     </View>
-                    <SafeAreaView
-                        style={{
-                            flex: 1,
-                        }}
+                    <TouchableOpacity
+                        onPress={() => { const [a, b] = [endQuery, startQuery]; setStartQuery(a); setEndQuery(b) }}
                     >
-                        <View
-                            style={{
-                                flex: 1,
-                                justifyContent: 'center',
-                                alignItems: 'stretch',
-                                padding: 20,
-                            }}
+                        <IconMaterialCommunity
+                            name = "swap-vertical"
+                            size = {40}
+                        />
+                    </TouchableOpacity>
+                    <View style={styles.container}>
+                        <View style = {styles.stationStyle}>
+                            <IconMaterialCommunity
+                                name = "arrow-bottom-right"
+                                size = {40}
+                            />
+                            {/* <Text
+                                style = {styles.commonText}>
+                                Arrival station:
+                            </Text> */}
+                        </View>
+                        <Autocomplete
+                            autoCapitalize="none"
+                            autoCorrect={false}
+                            containerStyle={styles.autocompleteContainer}
+                            inputContainerStyle={{borderWidth: 0}}
+                            data={endFlag ? [] : endStations}
+                            onFocus={() => setEndFlag(false)}
+                            onBlur={() => setEndFlag(true)}
+                            defaultValue={endQuery}
+                            onChangeText={text => setEndQuery(text)}
+                            placeholder="To:"
+                            renderItem={(item) => (
+                                <TouchableOpacity onPress={() => {
+                                    Keyboard.dismiss();
+                                    setEndFlag(true);
+                                    setEndQuery(item.item.name)
+                                    setEndStationId(item.item.id)
+                                }}>
+                                    <Text style={styles.itemText}>
+                                        {item.item.name}
+                                    </Text>
+                                </TouchableOpacity>
+                            )}
+                        />
+                    </View>
+                    <View
+                        style={{ flexDirection: "row" }}
+                    >
+                        <TouchableOpacity
+                            onPress={showDatepicker}
+                            style={styles.textInputContainer}
                         >
-                            <View style={styles.container}>
-                                <View style = {styles.stationStyle}>
-                                    <IconMaterialCommunity
-                                        name = "arrow-top-right"
-                                        size = {40}
-                                    />
-                                    {/* <Text
-                                        style = {styles.commonText}
-                                    >Departure station:
-                                    </Text> */}
-                                </View>
-                                <Autocomplete
-                                    autoCapitalize="none"
-                                    autoCorrect={false}
-                                    containerStyle={styles.autocompleteContainer}
-                                    inputContainerStyle={{borderWidth: 0}}
-                                    data={startFlag ? [] : startStations}
-                                    onFocus={() => setStartFlag(false)}
-                                    onBlur={() => setStartFlag(true)}
-                                    defaultValue={startQuery}
-                                    onChangeText={text => setStartQuery(text)}
-                                    placeholder="From:"
-                                    renderItem={(item) => (
-                                        <TouchableOpacity onPress={() => {
-                                            Keyboard.dismiss();
-                                            setStartFlag(true);
-                                            setStartQuery(item.item.name)
-                                            setStartStationId(item.item.id)
-                                        }}>
-                                            <Text style={styles.itemText}>
-                                                {item.item.name}
-                                            </Text>
-                                        </TouchableOpacity>
-                                    )}
-                                />
-                            </View>
-                            <TouchableOpacity
-                                onPress={() => { const [a, b] = [endQuery, startQuery]; setStartQuery(a); setEndQuery(b) }}
+                            <IconMaterialCommunity
+                                name="calendar"
+                                size={40}
+                            />
+                            <Text
+                                placeholder="Date:"
                             >
-                                <IconMaterialCommunity
-                                    name = "swap-vertical"
-                                    size = {40}
-                                />
-                            </TouchableOpacity>
-                            <View style={styles.container}>
-                                <View style = {styles.stationStyle}>
-                                    <IconMaterialCommunity
-                                        name = "arrow-bottom-right"
-                                        size = {40}
-                                    />
-                                    {/* <Text
-                                        style = {styles.commonText}>
-                                        Arrival station:
-                                    </Text> */}
-                                </View>
-                                <Autocomplete
-                                    autoCapitalize="none"
-                                    autoCorrect={false}
-                                    containerStyle={styles.autocompleteContainer}
-                                    inputContainerStyle={{borderWidth: 0}}
-                                    data={endFlag ? [] : endStations}
-                                    onFocus={() => setEndFlag(false)}
-                                    onBlur={() => setEndFlag(true)}
-                                    defaultValue={endQuery}
-                                    onChangeText={text => setEndQuery(text)}
-                                    placeholder="To:"
-                                    renderItem={(item) => (
-                                        <TouchableOpacity onPress={() => {
-                                            Keyboard.dismiss();
-                                            setEndFlag(true);
-                                            setEndQuery(item.item.name)
-                                            setEndStationId(item.item.id)
-                                        }}>
-                                            <Text style={styles.itemText}>
-                                                {item.item.name}
-                                            </Text>
-                                        </TouchableOpacity>
-                                    )}
-                                />
-                            </View>
-                            <View
-                                style={{ flexDirection: "row" }}
+                                {date.toDateString().split(' ').slice(0, 3).join(' ')}
+                            </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={showTimepicker}
+                            style={styles.textInputContainer}
+                        >
+                            <Text
+                                placeholder="Time:"
                             >
-                                <TouchableOpacity
+                                {date.toLocaleTimeString().split(':').slice(0, 2).join(':')}
+                            </Text>
+                            <IconMaterialCommunity
+                                name="clock"
+                                size={40}
+                            />
+                        </TouchableOpacity>
+                    </View>
+                    <View>
+                        <View>
+                            <Text>Date:</Text>
+                            <View>
+                                <Text>{date.getDate() < 9 ? `0${date.getDate()}` : date.getDate()}/{(date.getMonth() + 1) < 9 ? `0${date.getMonth() + 1}` : date.getMonth() + 1}</Text>
+                                <Button
                                     onPress={showDatepicker}
-                                    style={styles.textInputContainer}
-                                >
-                                    <IconMaterialCommunity
-                                        name="calendar"
-                                        size={40}
-                                    />
-                                    <Text
-                                        placeholder="Date:"
-                                    >
-                                        {date.toDateString().split(' ').slice(0, 3).join(' ')}
-                                    </Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity
+                                    title="EDIT"
+                                    type="clear" />
+                            </View>
+                        </View>
+                        <View>
+                            <Text>Time:</Text>
+                            <View>
+                                <Text>{date.getHours() < 9 ? `0${date.getHours()}` : date.getHours()}:{date.getMinutes() < 9 ? `0${date.getMinutes()}` : date.getMinutes()}</Text>
+                                <Button
                                     onPress={showTimepicker}
-                                    style={styles.textInputContainer}
-                                >
-                                    <Text
-                                        placeholder="Time:"
-                                    >
-                                        {date.toLocaleTimeString().split(':').slice(0, 2).join(':')}
-                                    </Text>
-                                    <IconMaterialCommunity
-                                        name="clock"
-                                        size={40}
-                                    />
-                                </TouchableOpacity>
-                            </View>
-                            <View>
-                                <View>
-                                    <Text>Date:</Text>
-                                    <View>
-                                        <Text>{date.getDate() < 9 ? `0${date.getDate()}` : date.getDate()}/{(date.getMonth() + 1) < 9 ? `0${date.getMonth() + 1}` : date.getMonth() + 1}</Text>
-                                        <Button
-                                            onPress={showDatepicker}
-                                            title="EDIT"
-                                            type="clear" />
-                                    </View>
-                                </View>
-                                <View>
-                                    <Text>Time:</Text>
-                                    <View>
-                                        <Text>{date.getHours() < 9 ? `0${date.getHours()}` : date.getHours()}:{date.getMinutes() < 9 ? `0${date.getMinutes()}` : date.getMinutes()}</Text>
-                                        <Button
-                                            onPress={showTimepicker}
-                                            title="EDIT"
-                                            type="clear"
-                                        />
-                                    </View>
-                                </View>
-                                {show && (
-                                    <DateTimePicker
-                                        testID="dateTimePicker"
-                                        value={date}
-                                        mode={mode}
-                                        is24Hour={true}
-                                        display="default"
-                                        onChange={onChangeDateTime}
-                                    />
-                                )}
-                            </View>
-                            <View>
-                                <Button
-                                    title="Cerca"
-                                    onPress={findTravels}
-                                    disabled={startStationId == undefined || endStationId == undefined}
-                                />
-                            </View>
-                            <View>
-                                {travels.map((c) => {
-                                    return (
-                                        <>
-                                            <Text>{c.from.station.name}</Text>
-                                            <Text>{c.to.station.name}</Text>
-                                            <Text>{c.duration}</Text>
-                                        </>
-                                    )
-                                })}
-                            </View>
-                            <View>
-                                <Button
-                                    title="Vai a Travel"
-                                    onPress={() => navigation.navigate('Travel', { id: "ciao" })}
+                                    title="EDIT"
+                                    type="clear"
                                 />
                             </View>
                         </View>
-                    </SafeAreaView>
-                </ScrollView>
-            </View>
-        </TouchableWithoutFeedback >
+                        {show && (
+                            <DateTimePicker
+                                testID="dateTimePicker"
+                                value={date}
+                                mode={mode}
+                                is24Hour={true}
+                                display="default"
+                                onChange={onChangeDateTime}
+                            />
+                        )}
+                    </View>
+                    <View>
+                        <Button
+                            title="Cerca"
+                            onPress={findTravels}
+                            disabled={startStationId == undefined || endStationId == undefined}
+                        />
+                    </View>
+                    <View>
+                        {travels.map((c) => {
+                            return (
+                                <>
+                                    <Text>{c.from.station.name}</Text>
+                                    <Text>{c.to.station.name}</Text>
+                                    <Text>{c.duration}</Text>
+                                </>
+                            )
+                        })}
+                    </View>
+                    <View>
+                        <Button
+                            title="Vai a Travel"
+                            onPress={() => navigation.navigate('Travel', { id: "ciao" })}
+                        />
+                    </View>
+                </View>
+            </SafeAreaView>
+        </ScrollView>
     );
 }
 
@@ -373,10 +368,6 @@ const styles = StyleSheet.create({
     },
     openingText: {
         textAlign: 'center'
-    },
-    stationStyle: {
-        // flex: 1,
-        // flexDirection: "row"
     }
 
 });
