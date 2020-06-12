@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import suisseIcon from '../../icons/switzerland64.png'
-import swapIcon from '../../icons/sort.png'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { View, SafeAreaView, StatusBar, Image, Text, Button, TouchableOpacity, StyleSheet, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import Autocomplete from 'react-native-autocomplete-input';
@@ -140,10 +139,10 @@ function Home({ navigation }) {
                                         name = "arrow-top-right"
                                         size = {35}
                                     />
-                                    <Text
+                                    {/* <Text
                                         style = {styles.commonText}
                                     >Departure station:
-                                    </Text>
+                                    </Text> */}
                                 </View>
                                 <Autocomplete
                                     autoCapitalize="none"
@@ -171,11 +170,10 @@ function Home({ navigation }) {
                             </View>
                             <TouchableOpacity
                                 onPress={() => { const [a, b] = [endQuery, startQuery]; setStartQuery(a); setEndQuery(b) }}
-                                style={styles.icon}
                             >
-                                <Image
-                                    style={styles.icon}
-                                    source={swapIcon}
+                                <IconMaterialCommunity
+                                    name = "swap-vertical"
+                                    size = {35}
                                 />
                             </TouchableOpacity>
                             <View style={styles.container}>
@@ -184,10 +182,10 @@ function Home({ navigation }) {
                                         name = "arrow-bottom-right"
                                         size = {35}
                                     />
-                                    <Text
+                                    {/* <Text
                                         style = {styles.commonText}>
                                         Arrival station:
-                                    </Text>
+                                    </Text> */}
                                 </View>
                                 <Autocomplete
                                     autoCapitalize="none"
@@ -326,10 +324,12 @@ const styles = StyleSheet.create({
         borderWidth: 1
     },
     container: {
+        flexDirection: "row",
         paddingTop: 25,
         paddingBottom: 25
     },
     autocompleteContainer: {
+        marginLeft: 15,
         left: 0,
         right: 0,
         top: 0
@@ -360,8 +360,9 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     stationStyle: {
-        flex: 1,
-        flexDirection: "row"
+        // flex: 1,
+        // flexDirection: "row"
+        alignSelf: "center"
     }
 
 });
