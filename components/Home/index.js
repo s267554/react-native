@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import suisseIcon from '../../icons/switzerland64.png'
+import swapIcon from '../../icons/sort.png'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { View, SafeAreaView, StatusBar, Image, Text, Button, TouchableOpacity, StyleSheet, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import Autocomplete from 'react-native-autocomplete-input';
@@ -109,6 +110,7 @@ function Home({ navigation }) {
                             flexDirection: 'row',
                         }}
                     >
+<<<<<<< HEAD
                         <Image
                             style={{
                                 width: 24,
@@ -125,6 +127,32 @@ function Home({ navigation }) {
                                 letterSpacing: 0.1
                             }}
                         >Switzerland travel system</Text>
+=======
+                        <SafeAreaView>
+                            <View
+                                style={{
+                                    padding: 16,
+                                    flexDirection: 'row',
+                                }}
+                            >
+                                <Image
+                                    style={{
+                                        ...styles.icon,
+                                        marginHorizontal: 8
+                                    }}
+                                    source={suisseIcon}
+                                />
+                                <Text
+                                    style={{
+                                        fontFamily: 'Montserrat-Medium',
+                                        fontSize: 16,
+                                        lineHeight: 24,
+                                        letterSpacing: 0.1
+                                    }}
+                                >Switzerland travel system</Text>
+                            </View>
+                        </SafeAreaView>
+>>>>>>> 59988e00124f983d185fc7cffbaf34f140168544
                     </View>
                     <SafeAreaView
                         style={{
@@ -168,6 +196,15 @@ function Home({ navigation }) {
                                     )}
                                 />
                             </View>
+                            <TouchableOpacity 
+                                onPress={() => {const [a, b] = [endQuery, startQuery]; setStartQuery(a); setEndQuery(b)}}
+                                style={styles.icon}
+                            >
+                                <Image
+                                    style={styles.icon}
+                                    source={swapIcon}
+                                />
+                            </TouchableOpacity>
                             <View style={styles.container}>
                                 <Autocomplete
                                     autoCapitalize="none"
@@ -192,6 +229,24 @@ function Home({ navigation }) {
                                         </TouchableOpacity>
                                     )}
                                 />
+                            </View>
+                            <View
+                                style={{flexDirection: "row"}}
+                            >
+                            <Text 
+                                onPress={showDatepicker}
+                                placeholder="Date:"
+                                style = {{...styles.textInputContainer, marginEnd: 15}}
+                            >
+                                {date.toDateString().split(' ').slice(0, 3).join(' ')}
+                            </Text>
+                            <Text 
+                                onPress={showTimepicker}
+                                placeholder="Time:"
+                                style = {{...styles.textInputContainer, marginStart: 15}}
+                            >
+                                {date.toLocaleTimeString().split(':').slice(0, 2).join(':')}
+                            </Text>
                             </View>
                             <View>
                                 <View>
@@ -259,7 +314,21 @@ function Home({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+    icon: {
+        height: 24,
+        width: 24
+    },
+    textInputContainer: {
+        flex: 1,
+        marginVertical: 15,
+        paddingHorizontal: 4,
+        paddingVertical: 10,
+        borderColor: '#b9b9b9',
+        borderRadius: 1,
+        borderWidth: 1
+    },
     container: {
+        paddingTop: 25,
         paddingBottom: 25
     },
     autocompleteContainer: {
