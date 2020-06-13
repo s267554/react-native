@@ -291,10 +291,16 @@ function Home({ navigation }) {
                         <Text style={styles.textButton}>SEARCH</Text>
                     </TouchableOpacity>
                 </View>
-                {loading && <ActivityIndicator color="#D52B1E" size="small" />}
-                {travels.map((travel) => {
-                    return <Connection connection={travel} />
-                })}
+                <View
+                    style={{
+                        marginVertical: 10
+                    }}
+                >
+                    {loading && <ActivityIndicator color="#D52B1E" size="small" />}
+                    {travels.map((travel) => {
+                        return <Connection connection={travel} />
+                    })}
+                </View>
             </SafeAreaView>
         </ScrollView>
     );
