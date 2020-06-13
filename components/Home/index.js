@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import suisseIcon from '../../icons/switzerland64.png'
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { View, SafeAreaView, StatusBar, Image, Text, Button, TouchableOpacity, StyleSheet, Keyboard, TouchableWithoutFeedback, ColorPropType } from 'react-native';
+import { View, SafeAreaView, ActivityIndicator, StatusBar, Image, Text, Button, TouchableOpacity, StyleSheet, Keyboard, TouchableWithoutFeedback, ColorPropType } from 'react-native';
 import Autocomplete from 'react-native-autocomplete-input';
 import { ScrollView } from 'react-native-gesture-handler';
 import IconMaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -23,6 +23,7 @@ function Home({ navigation }) {
     const [travels, setTravels] = useState([])
     const [startFlag, setStartFlag] = useState(false)
     const [endFlag, setEndFlag] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     function time_format(d) {
         hours = format_two_digits(d.getHours());
@@ -81,11 +82,14 @@ function Home({ navigation }) {
     };
 
     const findTravels = () => {
+        setLoading(true)
         const time = time_format(date)
         const day = yyyymmdd(date)
+
         fetch(`${API_CONNECTIONS}from=${startStationId}&to=${endStationId}&date=${day}&time=${time}`).then(res => res.json()).then((json) => {
             const { connections } = json;
             setTravels(connections);
+            setLoading(false)
         });
     }
 
@@ -287,6 +291,7 @@ function Home({ navigation }) {
                             <Text style={styles.textButton}>CANCEL</Text>
                         </TouchableOpacity>
                     </View>
+                    {loading && <ActivityIndicator color="#D52B1E" size="small" />}
                     {travels.map((travel) => {
                         return <Connection connection={travel} />
                     })}
