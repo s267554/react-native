@@ -103,7 +103,7 @@ function Home({ navigation }) {
             <View style={styles.searchContainer}>
             <View
                 style={{
-                    padding: 16,
+                    margin: 10,
                     flexDirection: 'row',
                 }}
             >
@@ -200,7 +200,10 @@ function Home({ navigation }) {
                     />
                 </View>
                 <View
-                    style={{ flexDirection: "row" }}
+                    style={{ 
+                        flexDirection: "row",
+                        marginBottom: 20
+                    }}
                 >
                     <TouchableOpacity
                         onPress={showDatepicker}
@@ -295,7 +298,6 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: "center",
         justifyContent: "space-evenly",
-        marginHorizontal: 20
     },
     container: {
         flexDirection: "row",
