@@ -20,6 +20,15 @@ function Connection({ connection }) {
         return result
     }
 
+    const parseJourneys = (sections) => {
+        let categories = []
+        sections.forEach(section => {
+            if(section.journey != null)
+                categories.push(section.journey.category)
+        })
+        return categories.join(' ')
+    }
+
     if (expand) {
         return (
             <View
@@ -35,7 +44,7 @@ function Connection({ connection }) {
                     onPress={() => {setExpand(false)}}
                     style={{margin: 2}}
                 >
-                    <Text>Close</Text>
+                    <Text>Collapse</Text>
                 </TouchableOpacity>
                 {c.sections.map((section) => {
                     return (
@@ -56,7 +65,7 @@ function Connection({ connection }) {
                 }}
                 onPress={() => {setExpand(true)}}
             >
-                    <Text>{c.products}</Text>
+                    <Text>{parseJourneys(c.sections)}</Text>
                     <Text>{parseDuration(c.duration)}</Text>
             </TouchableOpacity>
         )
