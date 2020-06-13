@@ -15,7 +15,7 @@ function Section({ section }) {
     }
 
     const parseJourneys = (section) => {
-        if (section.journey != null)
+        if (!walk)
             return (
                 <IconMaterialCommunity
                     name={section.journey.category === 'B' ? "bus" : "train"}
@@ -31,8 +31,8 @@ function Section({ section }) {
 
 
     let walk = false
-
     if (s.journey == null) walk = true
+
     return (
         <View
             style={{
@@ -60,7 +60,7 @@ function Section({ section }) {
                     <Text style={{
                         fontWeight: 'bold',
                         marginLeft: 8
-                    }}>{walk ? "walk" : s.journey.name}</Text>
+                    }}>{walk ? '' : s.journey.name}</Text>
                 </View>
                 {!walk &&
                     <View>
@@ -127,11 +127,6 @@ function Section({ section }) {
                     </View>
                 </View>
             </View>
-            {/*
-            <Text>{s.departure.station.name} {parseTime(s.departure.departure)} platform {s.departure.platform} {(s.departure.delay != null) ? (" +" + s.departure.delay + "'") : ""}</Text>
-            <Text>{walk ? "walk" : s.journey.name}</Text>
-            <Text>{s.arrival.station.name} {parseTime(s.arrival.arrival)} {s.arrival.platform && "platform " + s.arrival.platform}</Text>
-            */}
         </View>
     )
 }
