@@ -129,13 +129,6 @@ function Home({ navigation }) {
                             name="arrow-top-right"
                             size={40}
                         />
-                        <Text
-                            placeholder="Date:"
-                        >
-                            {date.toLocaleDateString()}
-                        </Text>
-                    </View>
-                    <View>
                         <Autocomplete
                             autoCapitalize="none"
                             autoCorrect={false}
@@ -167,11 +160,6 @@ function Home({ navigation }) {
                             const [c, d] = [endStationId, startStationId]; setStartStationId(c); setEndStationId(d)
                         }}
                     >
-                        <Text
-                            placeholder="Time:"
-                        >
-                            {format(date, "HH:mm")}
-                        </Text>
                         <IconMaterialCommunity
                             name="swap-vertical"
                             size={40}
@@ -224,7 +212,7 @@ function Home({ navigation }) {
                             <Text
                                 placeholder="Date:"
                             >
-                                {date.toDateString().split(' ').slice(0, 3).join(' ')}
+                                {date.toLocaleDateString()}
                             </Text>
                         </TouchableOpacity>
                         <TouchableOpacity
@@ -234,7 +222,7 @@ function Home({ navigation }) {
                             <Text
                                 placeholder="Time:"
                             >
-                                {date.toLocaleTimeString().split(':').slice(0, 2).join(':')}
+                                {format(date, "HH:mm")}
                             </Text>
                             <IconMaterialCommunity
                                 name="clock"
