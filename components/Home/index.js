@@ -146,9 +146,9 @@ function Home({ navigation }) {
                         inputContainerStyle={{ borderWidth: 0 }}
                         data={startFlag ? [] : startStations}
                         onFocus={() => setStartFlag(false)}
-                        onBlur={() => setStartFlag(true)}
+                        onBlur={() => {setStartFlag(true)}}
                         defaultValue={startQuery}
-                        onChangeText={text => setStartQuery(text)}
+                        onChangeText={text => {setStartQuery(text); setStartStationId(undefined)}}
                         placeholder="From:"
                         renderItem={(item) => (
                             <TouchableOpacity onPress={() => {
@@ -193,7 +193,7 @@ function Home({ navigation }) {
                         onFocus={() => setEndFlag(false)}
                         onBlur={() => setEndFlag(true)}
                         defaultValue={endQuery}
-                        onChangeText={text => setEndQuery(text)}
+                        onChangeText={text => {setEndQuery(text); setEndStationId(undefined)}}
                         placeholder="To:"
                         renderItem={(item) => (
                             <TouchableOpacity onPress={() => {
