@@ -6,6 +6,7 @@ import Autocomplete from 'react-native-autocomplete-input';
 import { ScrollView } from 'react-native-gesture-handler';
 import IconMaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 import Connection from '../Connection';
+import { format } from 'date-fns';
 
 
 function Home({ navigation }) {
@@ -23,15 +24,6 @@ function Home({ navigation }) {
     const [startFlag, setStartFlag] = useState(false)
     const [endFlag, setEndFlag] = useState(false)
 
-    function time_format(d) {
-        hours = format_two_digits(d.getHours());
-        minutes = format_two_digits(d.getMinutes());
-        return hours + ":" + minutes + ":";
-    }
-    function format_two_digits(n) {
-        return n < 10 ? '0' + n : n;
-    }
-
     const API = "http://transport.opendata.ch/v1/locations?type=stations&query="
     const API_CONNECTIONS = "http://transport.opendata.ch/v1/connections?"
 
@@ -41,7 +33,6 @@ function Home({ navigation }) {
             setStartStations(stations);
         });
     }, [startQuery])
-
 
     useEffect(() => {
         fetch(`${API}${endQuery}`).then(res => res.json()).then((json) => {
@@ -69,26 +60,15 @@ function Home({ navigation }) {
         showMode('time');
     };
 
-    function yyyymmdd(d) {
-        var mm = d.getMonth() + 1;
-        var dd = d.getDate();
-
-        return [d.getFullYear(),
-        (mm > 9 ? '' : '0') + mm,
-        (dd > 9 ? '' : '0') + dd
-        ].join('-');
-    };
-
     const findTravels = () => {
-        const time = time_format(date)
-        const day = yyyymmdd(date)
+        const day = (format(date, "yyyy-MM-dd"))
+        const time = (format(date, "HH:mm"))
         fetch(`${API_CONNECTIONS}from=${startStationId}&to=${endStationId}&date=${day}&time=${time}`).then(res => res.json()).then((json) => {
             const { connections } = json;
             setTravels(connections);
         });
     }
 
-    const comp = (a, b) => a.toLowerCase().trim() === b.toLowerCase().trim();
     return (
         <ScrollView 
             keyboardShouldPersistTaps='handled'
@@ -216,7 +196,7 @@ function Home({ navigation }) {
                         <Text
                             placeholder="Date:"
                         >
-                            {date.toDateString().split(' ').slice(0, 3).join(' ')}
+                            {date.toLocaleDateString()}
                         </Text>
                     </TouchableOpacity>
                     <TouchableOpacity
@@ -226,7 +206,7 @@ function Home({ navigation }) {
                         <Text
                             placeholder="Time:"
                         >
-                            {date.toLocaleTimeString().split(':').slice(0, 2).join(':')}
+                            {format(date, "HH:mm")}
                         </Text>
                         <IconMaterialCommunity
                             name="clock"

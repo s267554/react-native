@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { toDate, parseISO } from 'date-fns'
+import { toDate, parseISO, format } from 'date-fns'
 
 function Section({ section }) {
 
@@ -11,7 +11,7 @@ function Section({ section }) {
 
     const parseTime = (time) => {
         let date = toDate(parseISO(time))
-        return date.toLocaleTimeString()
+        return format(date, "HH:mm")
     }
 
     let walk = false
