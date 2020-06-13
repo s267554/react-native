@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
 import { View, Text } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { toDate, parseISO } from 'date-fns'
 
 function Section({ section }) {
 
     const [expand, setExpand] = useState(false)
 
     const s = section
+
+    const parseTime = (time) => {
+        let date = toDate(parseISO(time))
+        return date.toLocaleTimeString()
+    }
 
     let walk = false
 
@@ -21,7 +27,9 @@ function Section({ section }) {
                 }}
                 onPress={() => {setExpand(false)}}
             >
-                <Text>{s.departure.departure} {s.departure.station.name} - {s.journey.name} - {s.arrival.station.name} {s.arrival.arrival}</Text>
+                <Text>{s.departure.station.name} {parseTime(s.departure.departure)} platform {s.departure.platform} {(s.departure.delay != null) ? (" +" + s.departure.delay + "'") : ""}</Text>
+                <Text>{s.journey.name}</Text>
+                <Text>{s.arrival.station.name} {parseTime(s.arrival.arrival)} platform {s.arrival.platform}</Text>
             </TouchableOpacity>
         )
     }
