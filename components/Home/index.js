@@ -66,7 +66,7 @@ function Home({ navigation }) {
         const day = (format(date, "yyyy-MM-dd"))
         const time = (format(date, "HH:mm"))
         setLoading(true)
-
+        setTravels([])
         fetch(`${API_CONNECTIONS}from=${startStationId}&to=${endStationId}&date=${day}&time=${time}`).then(res => res.json()).then((json) => {
             const { connections } = json;
             setTravels(connections);
