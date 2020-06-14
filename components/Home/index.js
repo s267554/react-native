@@ -86,15 +86,13 @@ function Home({ navigation, route }) {
     }
 
     return (
-        <ScrollView
-            keyboardShouldPersistTaps='handled'
+        <SafeAreaView
             style={{
                 backgroundColor: 'white',
                 flex: 1,
                 padding: 10
             }}
         >
-            <StatusBar translucent backgroundColor="transparent" barStyle="dark-content" />
             <View
                 style={{
                     flexDirection: 'row',
@@ -116,8 +114,7 @@ function Home({ navigation, route }) {
             <SafeAreaView
                 style={{
                     flex: 1,
-                    justifyContent: 'center',
-                    alignItems: 'stretch',
+                    justifyContent: "space-evenly"
                 }}
             >
                 <TouchableOpacity style={styles.container} onPress={() => navigation.navigate('Station', {pos: 'start'})}>
@@ -239,7 +236,7 @@ function Home({ navigation, route }) {
                     {loading && <ActivityIndicator color="#D52B1E" size="small" />}
                 </View>
             </SafeAreaView>
-        </ScrollView>
+        </SafeAreaView>
     );
 }
 
