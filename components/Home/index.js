@@ -173,7 +173,7 @@ function Home({ navigation, route }) {
                         <Text
                             placeholder="Date:"
                         >
-                            {format(date, "dd/MM")}
+                            {format(date, "E dd/MM")}
                         </Text>
                     </TouchableOpacity>
                     <TouchableOpacity
