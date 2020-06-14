@@ -163,7 +163,7 @@ function Home({ navigation, route }) {
                         <Text
                             placeholder="Date:"
                         >
-                            {date.toLocaleDateString()}
+                            {format(date, "dd/MM")}
                         </Text>
                     </TouchableOpacity>
                     <TouchableOpacity
