@@ -89,7 +89,7 @@ function Section({ section }) {
                         justifyContent: 'space-between',
                         alignItems: 'center'
                     }}>
-                        <Text>{s.departure.station.name} : {parseTime(s.departure.departure)}</Text>
+                        <Text>{parseTime(s.departure.departure)} {s.departure.station.name}</Text>
                         {s.departure.platform &&
                             <View style={{
                                 flexDirection: 'row',
@@ -109,7 +109,7 @@ function Section({ section }) {
                         justifyContent: 'space-between',
                         alignItems: 'center'
                     }}>
-                        <Text>{s.arrival.station.name} : {parseTime(s.arrival.arrival)}</Text>
+                        <Text>{parseTime(s.arrival.arrival)} {s.arrival.station.name}</Text>
                         {s.arrival.platform &&
                             <View style={{
                                 flexDirection: 'row',

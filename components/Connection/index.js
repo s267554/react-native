@@ -97,8 +97,8 @@ function Connection({ connection }) {
                     justifyContent: 'space-between',
                 }}>
                     <View>
-                        <Text>{c.from.station.name}: {parseTime(c.from.departure)}</Text>
-                        <Text>{c.to.station.name}: {parseTime(c.to.arrival)}</Text>
+                        <Text>{parseTime(c.from.departure)} {c.from.station.name}</Text>
+                        <Text>{parseTime(c.to.arrival)} {c.to.station.name}</Text>
                     </View>
                     <IconMaterialCommunity
                         name="chevron-down"
