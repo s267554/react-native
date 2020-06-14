@@ -1,15 +1,15 @@
 import * as React from 'react';
-import { SafeAreaView } from 'react-native';
 import Connection from '../Connection';
+import { ScrollView } from 'react-native-gesture-handler';
 
 function Search({ route }) {
     const travels = route.params
     return (
-      <SafeAreaView>
+      <ScrollView>
         {travels.map((travel) => {
             return <Connection connection={travel} />
         })}
-      </SafeAreaView>
+      </ScrollView>
     );
   }
 
