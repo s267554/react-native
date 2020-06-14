@@ -122,7 +122,12 @@ function Home({ navigation, route }) {
                         name="arrow-top-right"
                         size={40}
                     />
-                <Text style={styles.stations}>{startStationName}</Text>
+                {
+                    startStationId != undefined ?
+                    (<Text style={styles.stations}>{startStationName}</Text>)
+                    :
+                    (<Text style={{...styles.stations, color: 'grey'}}>From:</Text>)
+                }
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={() => {
@@ -144,7 +149,12 @@ function Home({ navigation, route }) {
                         name="arrow-bottom-right"
                         size={40}
                     />
-                <Text style={styles.stations}>{endStationName}</Text>
+                {
+                    endStationId != undefined ?
+                    (<Text style={styles.stations}>{endStationName}</Text>)
+                    :
+                    (<Text style={{...styles.stations, color: 'grey'}}>To:</Text>)
+                }                
                 </TouchableOpacity>
                 <View
                     style={{
