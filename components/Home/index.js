@@ -125,7 +125,7 @@ function Home({ navigation, route }) {
                         name="arrow-top-right"
                         size={40}
                     />
-                <Text>{startStationName}</Text>
+                <Text style={styles.stations}>{startStationName}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={() => {
@@ -147,7 +147,7 @@ function Home({ navigation, route }) {
                         name="arrow-bottom-right"
                         size={40}
                     />
-                <Text>{endStationName}</Text>
+                <Text style={styles.stations}>{endStationName}</Text>
                 </TouchableOpacity>
                 <View
                     style={{
@@ -250,6 +250,13 @@ const styles = StyleSheet.create({
         fontSize: 20,
         lineHeight: 24,
         letterSpacing: 0.2,
+    },
+    stations: {
+        marginHorizontal: 20,
+        flex: 1,
+        padding: 8,
+        borderWidth: 1,
+        borderRadius: 5
     },
     textInputContainer: {
         flexDirection: "row",
