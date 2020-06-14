@@ -36,7 +36,6 @@ function Station({ route, navigation }) {
             autoCapitalize="none"
             autoCorrect={false}
             containerStyle={styles.autocompleteContainer}
-            inputContainerStyle={{ borderWidth: 0 }}
             data={stations}
             defaultValue={query}
             onChangeText={text => {setQuery(text)}}
@@ -55,21 +54,8 @@ function Station({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
-    textInputContainer: {
-        flexDirection: "row",
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "space-evenly",
-    },
-    container: {
-        flexDirection: "row",
-        marginVertical: 20
-    },
     autocompleteContainer: {
-        marginLeft: 15,
-        left: 0,
-        right: 0,
-        top: 0,
+        margin: 10
     },
     itemText: {
         fontSize: 15,
