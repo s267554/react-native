@@ -212,28 +212,26 @@ function Home({ navigation, route }) {
                         />
                         <Text style={styles.textButton}>CANCEL</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={findTravels}
-                        style={{
-                            ...styles.bigButton,
-                            backgroundColor: startStationId == undefined || endStationId == undefined ? 'lightgrey' : 'black'
-                        }}
-                        disabled={startStationId == undefined || endStationId == undefined}
-                    >
-                        <IconMaterial
-                            name="search"
-                            size={30}
-                            color="white"
-                        />
-                        <Text style={styles.textButton}>SEARCH</Text>
-                    </TouchableOpacity>
-                </View>
-                <View
-                    style={{
-                        marginVertical: 10
-                    }}
-                >
-                    {loading && <ActivityIndicator color="#D52B1E" size="small" />}
+                    { 
+                        loading ? 
+                        (<ActivityIndicator color='black' style={styles.bigButton}/>) 
+                        : 
+                        (<TouchableOpacity
+                            onPress={findTravels}
+                            style={{
+                                ...styles.bigButton,
+                                backgroundColor: startStationId == undefined || endStationId == undefined ? 'lightgrey' : 'black'
+                            }}
+                            disabled={startStationId == undefined || endStationId == undefined}
+                        >
+                            <IconMaterial
+                                name="search"
+                                size={30}
+                                color="white"
+                            />
+                            <Text style={styles.textButton}>SEARCH</Text>
+                        </TouchableOpacity>)
+                    }
                 </View>
             </SafeAreaView>
         </SafeAreaView>
@@ -272,7 +270,8 @@ const styles = StyleSheet.create({
         padding: 10,
         flexDirection: 'row',
         justifyContent: 'space-evenly',
-        alignItems: "center"
+        alignItems: "center",
+        flex: 1
     },
     textButton: {
         fontFamily: 'Montserrat-Medium',
