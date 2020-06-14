@@ -66,7 +66,7 @@ function Connection({ connection }) {
                         justifyContent: 'space-between',
                     }}
                 >
-                    <Text>Collapse</Text>
+                    <Text style={{fontWeight: 'bold'}}>Collapse</Text>
                     <IconMaterialCommunity
                         name="chevron-up"
                         size={20}
