@@ -220,9 +220,9 @@ function Home({ navigation, route }) {
                             onPress={findTravels}
                             style={{
                                 ...styles.bigButton,
-                                backgroundColor: startStationId == undefined || endStationId == undefined ? 'lightgrey' : 'black'
+                                backgroundColor: (startStationId == undefined || endStationId == undefined) || (startStationId == endStationId) ? 'lightgrey' : 'black'
                             }}
-                            disabled={startStationId == undefined || endStationId == undefined}
+                            disabled={(startStationId == undefined || endStationId == undefined) || (startStationId == endStationId)}
                         >
                             <IconMaterial
                                 name="search"
