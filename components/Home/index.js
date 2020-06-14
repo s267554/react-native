@@ -2,61 +2,35 @@ import React, { useEffect, useState } from 'react';
 import suisseIcon from '../../icons/switzerland64.png'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { View, SafeAreaView, ActivityIndicator, StatusBar, Image, Text, Button, TouchableOpacity, StyleSheet, Keyboard, TouchableWithoutFeedback, ColorPropType } from 'react-native';
-import Autocomplete from 'react-native-autocomplete-input';
 import { ScrollView } from 'react-native-gesture-handler';
 import IconMaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
-import Connection from '../Connection';
 import { format } from 'date-fns';
 import IconMaterial from 'react-native-vector-icons/MaterialIcons';
 
-
-function Home({ navigation }) {
-
-    const [startStations, setStartStations] = useState([])
-    const [endStations, setEndStations] = useState([])
+function Home({ navigation, route }) {
 
     const [startStationId, setStartStationId] = useState(undefined)
     const [endStationId, setEndStationId] = useState(undefined)
-
-    const [startQuery, setStartQuery] = useState("")
-    const [endQuery, setEndQuery] = useState("")
 
     const [date, setDate] = useState(new Date());
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
     
-    const [startFlag, setStartFlag] = useState(false)
-    const [endFlag, setEndFlag] = useState(false)
-
-    const [travels, setTravels] = useState([])
     const [loading, setLoading] = useState(false)
 
-    const API = "http://transport.opendata.ch/v1/locations?type=station&query="
     const API_CONNECTIONS = "http://transport.opendata.ch/v1/connections?"
 
     useEffect(() => {
-        fetch(`${API}${startQuery}`).then(res => res.json()).then((json) => {
-            let results = []
-            const { stations } = json;
-            for(let key in stations) {
-                if(stations[key].id != null)
-                    results.push(stations[key])
-            }
-            setStartStations(results);
-        });
-    }, [startQuery])
+        if (route.params?.startStationId) {
+            setStartStationId(route.params?.startStationId)
+        }
+    }, [route.params?.startStationId]);
 
     useEffect(() => {
-        fetch(`${API}${endQuery}`).then(res => res.json()).then((json) => {
-            let results = []
-            const { stations } = json;
-            for(let key in stations) {
-                if(stations[key].id != null)
-                    results.push(stations[key])
-            }
-            setEndStations(results);
-        });
-    }, [endQuery])
+        if (route.params?.endStationId) {
+            setStartStationId(route.params?.endStationId)
+        }
+    }, [route.params?.startStationId]);
 
     const onChangeDateTime = (event, selectedDate) => {
         const currentDate = selectedDate || date;
@@ -81,23 +55,17 @@ function Home({ navigation }) {
         const day = (format(date, "yyyy-MM-dd"))
         const time = (format(date, "HH:mm"))
         setLoading(true)
-        setTravels([])
         fetch(`${API_CONNECTIONS}from=${startStationId}&to=${endStationId}&date=${day}&time=${time}`).then(res => res.json()).then((json) => {
             const { connections } = json;
-            setTravels(connections);
             setLoading(false)
+            navigation.navigate('Search', connections)
         });
     }
 
     const cancelTravels = () => {
         setDate(new Date())
-        setTravels([])
-        setStartQuery("")
-        setEndQuery("")
         setStartStationId(undefined)
         setEndStationId(undefined)
-        setStartStations([])
-        setEndStations([])
     }
 
     return (
@@ -105,6 +73,7 @@ function Home({ navigation }) {
             keyboardShouldPersistTaps='handled'
             style={{
                 backgroundColor: 'white',
+                flex: 1,
                 padding: 10
             }}
         >
@@ -134,36 +103,13 @@ function Home({ navigation }) {
                     alignItems: 'stretch',
                 }}
             >
-                <View style={styles.container}>
+                <TouchableOpacity style={styles.container} onPress={() => navigation.navigate('Station', {pos: 'start'})}>
                     <IconMaterialCommunity
                         name="arrow-top-right"
                         size={40}
                     />
-                    <Autocomplete
-                        autoCapitalize="none"
-                        autoCorrect={false}
-                        containerStyle={styles.autocompleteContainer}
-                        inputContainerStyle={{ borderWidth: 0 }}
-                        data={startFlag ? [] : startStations}
-                        onFocus={() => setStartFlag(false)}
-                        onBlur={() => {setStartFlag(true)}}
-                        defaultValue={startQuery}
-                        onChangeText={text => {setStartQuery(text); setStartStationId(undefined)}}
-                        placeholder="From:"
-                        renderItem={(item) => (
-                            <TouchableOpacity onPress={() => {
-                                Keyboard.dismiss();
-                                setStartFlag(true);
-                                setStartQuery(item.item.name)
-                                setStartStationId(item.item.id)
-                            }}>
-                                <Text style={styles.itemText}>
-                                    {item.item.name}
-                                </Text>
-                            </TouchableOpacity>
-                        )}
-                    />
-                </View>
+                <Text>{route.params?.startStationName}</Text>
+                </TouchableOpacity>
                 <TouchableOpacity
                     onPress={() => {
                         const [a, b] = [endQuery, startQuery]; setStartQuery(a); setEndQuery(b)
@@ -179,36 +125,13 @@ function Home({ navigation }) {
                         size={40}
                     />
                 </TouchableOpacity>
-                <View style={styles.container}>
+                <TouchableOpacity style={styles.container} onPress={() => navigation.navigate('Station', {pos: 'end'})}>
                     <IconMaterialCommunity
                         name="arrow-bottom-right"
                         size={40}
                     />
-                    <Autocomplete
-                        autoCapitalize="none"
-                        autoCorrect={false}
-                        containerStyle={styles.autocompleteContainer}
-                        inputContainerStyle={{ borderWidth: 0 }}
-                        data={endFlag ? [] : endStations}
-                        onFocus={() => setEndFlag(false)}
-                        onBlur={() => setEndFlag(true)}
-                        defaultValue={endQuery}
-                        onChangeText={text => {setEndQuery(text); setEndStationId(undefined)}}
-                        placeholder="To:"
-                        renderItem={(item) => (
-                            <TouchableOpacity onPress={() => {
-                                Keyboard.dismiss();
-                                setEndFlag(true);
-                                setEndQuery(item.item.name)
-                                setEndStationId(item.item.id)
-                            }}>
-                                <Text style={styles.itemText}>
-                                    {item.item.name}
-                                </Text>
-                            </TouchableOpacity>
-                        )}
-                    />
-                </View>
+                <Text>{route.params?.endStationName}</Text>
+                </TouchableOpacity>
                 <View
                     style={{
                         flexDirection: "row",
@@ -297,9 +220,6 @@ function Home({ navigation }) {
                     }}
                 >
                     {loading && <ActivityIndicator color="#D52B1E" size="small" />}
-                    {travels.map((travel) => {
-                        return <Connection connection={travel} />
-                    })}
                 </View>
             </SafeAreaView>
         </ScrollView>
@@ -323,16 +243,6 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: "row",
         marginVertical: 20
-    },
-    autocompleteContainer: {
-        marginLeft: 15,
-        left: 0,
-        right: 0,
-        top: 0,
-    },
-    itemText: {
-        fontSize: 15,
-        margin: 2
     },
     bigButton: {
         borderRadius: 10,
