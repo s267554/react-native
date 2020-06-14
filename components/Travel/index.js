@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { View, Button, Text } from 'react-native';
 
 function Travel({ route, navigation }) {

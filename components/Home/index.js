@@ -9,6 +9,9 @@ import IconMaterial from 'react-native-vector-icons/MaterialIcons';
 
 function Home({ navigation, route }) {
 
+    const [startStationName, setStartStationName] = useState('')
+    const [endStationName, setEndStationName] = useState('')
+
     const [startStationId, setStartStationId] = useState(undefined)
     const [endStationId, setEndStationId] = useState(undefined)
 
@@ -28,9 +31,21 @@ function Home({ navigation, route }) {
 
     useEffect(() => {
         if (route.params?.endStationId) {
-            setStartStationId(route.params?.endStationId)
+            setEndStationId(route.params?.endStationId)
         }
-    }, [route.params?.startStationId]);
+    }, [route.params?.endStationId]);
+
+    useEffect(() => {
+        if (route.params?.startStationName) {
+            setStartStationName(route.params?.startStationName)
+        }
+    }, [route.params?.startStationName]);
+
+    useEffect(() => {
+        if (route.params?.endStationName) {
+            setEndStationName(route.params?.endStationName)
+        }
+    }, [route.params?.endStationName]);
 
     const onChangeDateTime = (event, selectedDate) => {
         const currentDate = selectedDate || date;
@@ -64,6 +79,8 @@ function Home({ navigation, route }) {
 
     const cancelTravels = () => {
         setDate(new Date())
+        setStartStationName('')
+        setEndStationName('')
         setStartStationId(undefined)
         setEndStationId(undefined)
     }
@@ -108,11 +125,11 @@ function Home({ navigation, route }) {
                         name="arrow-top-right"
                         size={40}
                     />
-                <Text>{route.params?.startStationName}</Text>
+                <Text>{startStationName}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={() => {
-                        const [a, b] = [endQuery, startQuery]; setStartQuery(a); setEndQuery(b)
+                        const [a, b] = [endStationName, startStationName]; setStartStationName(a); setEndStationName(b)
                         const [c, d] = [endStationId, startStationId]; setStartStationId(c); setEndStationId(d)
                     }}
                     style={{
@@ -130,7 +147,7 @@ function Home({ navigation, route }) {
                         name="arrow-bottom-right"
                         size={40}
                     />
-                <Text>{route.params?.endStationName}</Text>
+                <Text>{endStationName}</Text>
                 </TouchableOpacity>
                 <View
                     style={{

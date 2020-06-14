@@ -1,10 +1,8 @@
 import * as React from 'react';
-import { Button, View, Text, SafeAreaView } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { SafeAreaView } from 'react-native';
 import Connection from '../Connection';
 
-function Search({ route, navigation }) {
+function Search({ route }) {
     const travels = route.params
     return (
       <SafeAreaView>
