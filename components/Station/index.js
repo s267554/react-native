@@ -11,10 +11,10 @@ function Station({ route, navigation }) {
     const [query, setQuery] = useState("")
 
     const sendBack = (name, id) => {
-        if(route.params?.pos == 'start'){
+        if (route.params?.pos == 'start') {
             navigation.navigate('Home', {startStationName: name, startStationId: id})
         }
-        if(route.params?.pos == 'end'){
+        else {
             navigation.navigate('Home', {endStationName: name, endStationId: id})
         }
     }
@@ -40,7 +40,7 @@ function Station({ route, navigation }) {
             data={stations}
             defaultValue={query}
             onChangeText={text => {setQuery(text)}}
-            placeholder="From:"
+            placeholder={(route.params?.pos == 'start' ? 'From:' : 'To:')}
             renderItem={(item) => (
                 <TouchableOpacity onPress={() => {
                     sendBack(item.item.name, item.item.id)
